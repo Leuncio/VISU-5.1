@@ -1,0 +1,31 @@
+.map {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Optional: controls max size */
+    aspect-ratio: 16 / 9; /* Adjust based on your actual map image */
+}
+
+.map img:first-child {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* or 'contain' if you want the full map always visible */
+    display: block;
+}
+
+.dot {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%); /* Centers the dot */
+}
+
+/* Dot positions (adjust as needed) */
+.green-dot {
+    top: 30%;
+    left: 40%;
+}
+
+.red-dot {
+    top: 65%;
+    left: 55%;
+}
