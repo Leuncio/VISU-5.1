@@ -26,6 +26,6 @@
 }
 
 .red-dot {
-    top: 65%;
-    left: 55%;
+    background-color: red;
+    border-radius: 50%;
 }

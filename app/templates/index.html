@@ -7,11 +7,37 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Lau</h1>
+    <h1>Mapa com Ponto Dinâmico</h1>
     <div class="map">
-        <img src="static/mapa.png" alt="Map">
-        <img src="static/green.png" class="dot green-dot" alt="Green Dot">
-        <img src="static/red.png" class="dot red-dot" alt="Red Dot">
-    </div>    
+        <img src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
+        <div id="punto-rojo" class="dot red-dot"></div>
+    </div>
+
+    <script>
+        // Pegue os valores diretos do Python (Jinja2)
+        const puntoRojo = {{ punto_rojo | tojson }};
+    
+        // Seleciona o ponto
+        const rojo = document.getElementById("punto-rojo");
+
+        // Função para atualizar a posição do ponto dinamicamente
+        function atualizarPonto() {
+            rojo.style.left = puntoRojo.left;  // Atualiza a posição "left"
+            rojo.style.top = puntoRojo.top;    // Atualiza a posição "top"
+        }
+
+        // Chamando a função para atualizar a posição na inicialização
+        atualizarPonto();
+
+        // Você pode criar lógica para mudar a posição posteriormente
+        setTimeout(function() {
+            // Exemplo: Mudando a posição do ponto em 5 segundos
+            puntoRojo.left = "50%";  // Nova posição para 'left'
+            puntoRojo.top = "30%";   // Nova posição para 'top'
+
+            // Atualiza a posição
+            atualizarPonto();
+        }, 5000); // 5 segundos para demonstrar o movimento
+    </script>
 </body>
 </html>
