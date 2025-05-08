@@ -14,30 +14,22 @@
     </div>
 
     <script>
-        // Pegue os valores diretos do Python (Jinja2)
-        const puntoRojo = {{ punto_rojo | tojson }};
-    
-        // Seleciona o ponto
         const rojo = document.getElementById("punto-rojo");
 
-        // Função para atualizar a posição do ponto dinamicamente
         function atualizarPonto() {
-            rojo.style.left = puntoRojo.left;  // Atualiza a posição "left"
-            rojo.style.top = puntoRojo.top;    // Atualiza a posição "top"
+            fetch("/api/punto_rojo")
+                .then(response => response.json())
+                .then(data => {
+                    rojo.style.left = data.left;
+                    rojo.style.top = data.top;
+                });
         }
 
-        // Chamando a função para atualizar a posição na inicialização
+        // Atualiza ao carregar a página
         atualizarPonto();
 
-        // Você pode criar lógica para mudar a posição posteriormente
-        setTimeout(function() {
-            // Exemplo: Mudando a posição do ponto em 5 segundos
-            puntoRojo.left = "50%";  // Nova posição para 'left'
-            puntoRojo.top = "30%";   // Nova posição para 'top'
-
-            // Atualiza a posição
-            atualizarPonto();
-        }, 5000); // 5 segundos para demonstrar o movimento
+        // Atualiza a cada 5 segundos (ou o tempo que quiser)
+        setInterval(atualizarPonto, 5000);
     </script>
 </body>
 </html>
