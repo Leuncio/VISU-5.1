@@ -3,5 +3,5 @@
 
 from .coordenadas_mapa import metros_a_css_porcentaje
 
-punto_rojo = metros_a_css_porcentaje(7,1)
+punto_rojo = metros_a_css_porcentaje(2,1)
 print(punto_rojo)
