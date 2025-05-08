@@ -3,5 +3,7 @@
 
 from .coordenadas_mapa import metros_a_css_porcentaje
 
-punto_rojo = metros_a_css_porcentaje(2,1)
-print(punto_rojo)
+semaforo = metros_a_css_porcentaje(8, 1)
+semaforo["color"] = "rojo"  # Puedes cambiar esto dinámicamente luego
+
+print(semaforo)

@@ -12,20 +12,12 @@
     display: block;
 }
 
-.dot {
+/* Secion de los semaforos */
+.semaforo {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    transform: translate(-50%, -50%); /* Centers the dot */
+    width: 15px;
+    height: 15px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
 }
 
-/* Dot positions (adjust as needed) */
-.green-dot {
-    top: 30%;
-    left: 40%;
-}
-
-.red-dot {
-    background-color: red;
-    border-radius: 50%;
-}

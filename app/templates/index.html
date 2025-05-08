@@ -3,33 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map with Overlay Dots</title>
+    <title>Mapa com Ponto Dinâmico</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Mapa com Ponto Dinâmico</h1>
     <div class="map">
         <img src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
-        <div id="punto-rojo" class="dot red-dot"></div>
+        <img id="punto-semaforo" class="semaforo" src="{{ url_for('static', filename='punto-gris.png') }}" alt="Semáforo">
     </div>
 
     <script>
-        const rojo = document.getElementById("punto-rojo");
+        const semaforo = document.getElementById("punto-semaforo");
 
         function atualizarPonto() {
             fetch("/api/punto_rojo")
                 .then(response => response.json())
                 .then(data => {
-                    rojo.style.left = data.left;
-                    rojo.style.top = data.top;
+                    semaforo.style.left = data.left;
+                    semaforo.style.top = data.top;
+
+                    // Cambiar la imagen dinámicamente según el color
+                    if (data.color === "rojo") {
+                        semaforo.src = "/static/punto-rojo.png";
+                    } else if (data.color === "verde") {
+                        semaforo.src = "/static/punto-verde.png";
+                    }
+                    else {
+                        semaforo.src = "/static/punto-gris.png";
+                    }
                 });
         }
 
-        // Atualiza ao carregar a página
-        atualizarPonto();
-
-        // Atualiza a cada 5 segundos (ou o tempo que quiser)
-        setInterval(atualizarPonto, 5000);
+        atualizarPonto(); // Al cargar
+        setInterval(atualizarPonto, 5000); // A cada 5 segundos
     </script>
 </body>
 </html>
