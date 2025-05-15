@@ -1,18 +1,32 @@
+/* styles.css */
+
+/* map section */
+
+.map-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto; /* centraliza o contêiner na página */
+}
+
+.titulo-mapa {
+    text-align: center;
+    font-size: 24px;
+    margin: 0 0 10px 0;
+}
+
 .map {
     position: relative;
     width: 100%;
-    max-width: 800px; /* Optional: controls max size */
-    aspect-ratio: 16 / 9; /* Adjust based on your actual map image */
+    aspect-ratio: 16 / 9;
 }
 
 .map img:first-child {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* or 'contain' if you want the full map always visible */
+    object-fit: cover;
     display: block;
 }
 
-/* Secion de los semaforos */
 .semaforo {
     position: absolute;
     width: 15px;
@@ -20,4 +34,5 @@
     transform: translate(-50%, -50%);
     pointer-events: none;
 }
+
 

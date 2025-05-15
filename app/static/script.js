@@ -1,5 +1,8 @@
 // script.js
 
+
+// map
+    // semaforos
 const semaforo = document.getElementById("punto-semaforo");
 
 function atualizarPonto() {
@@ -21,3 +24,7 @@ function atualizarPonto() {
 
 atualizarPonto();
 setInterval(atualizarPonto, 5000);
+    // end semaforos
+// end mapa
+
+
