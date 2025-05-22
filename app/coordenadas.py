@@ -8,3 +8,6 @@ semaforo = metros_a_css_porcentaje(8, 8)
 semaforo["color"] = "rojo"  # Puedes cambiar esto dinámicamente luego
 
 print(semaforo)
+
+avg = metros_a_css_porcentaje(5, 5)
+semaforo["color"] = "rojo"

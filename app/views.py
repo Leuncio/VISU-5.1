@@ -1,7 +1,7 @@
 # views.py
 
 from flask import Blueprint, render_template
-from .coordenadas import semaforo
+from .coordenadas import semaforo, avg
 
 # Create a Blueprint for the main application
 main_bp = Blueprint('main', __name__, template_folder='templates')  # Define blueprint with the name 'main'
@@ -9,4 +9,4 @@ main_bp = Blueprint('main', __name__, template_folder='templates')  # Define blu
 @main_bp.route('/', methods=['GET', 'POST'])
 def home():
 
-    return render_template('index.html', semaforo=semaforo)
+    return render_template('index.html', semaforo=semaforo, avg=avg)
