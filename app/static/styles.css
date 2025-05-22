@@ -1,29 +1,25 @@
-/* styles.css */
-
-/* map section */
-
 .map-container {
     width: 100%;
     max-width: 800px;
-    margin: 0 auto; /* centraliza o contêiner na página */
+    margin: 0 auto;
 }
 
 .titulo-mapa {
     text-align: center;
     font-size: 24px;
-    margin: 0 0 10px 0;
+    margin-bottom: 10px;
 }
 
 .map {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 979 / 599; /* mantém a proporção da imagem */
 }
 
 .map img:first-child {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto; /* <-- permite que a altura seja proporcional à largura */
+    object-fit: contain;
     display: block;
 }
 
@@ -34,5 +30,3 @@
     transform: translate(-50%, -50%);
     pointer-events: none;
 }
-
-

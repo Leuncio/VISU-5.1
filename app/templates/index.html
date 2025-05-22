@@ -1,21 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% include "header.html" %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-<div class="map-container">
-    <h1 class="titulo-mapa">Mapa</h1>
-    <div class="map">
-        <img src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
-        <img id="punto-semaforo" class="semaforo" src="{{ url_for('static', filename='punto-gris.png') }}" alt="Semáforo">
+    <div class="map-container">
+        <h1 class="titulo-mapa">Mapa</h1>
+        <div class="map">
+            <img src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
+            <img
+                id="punto-semaforo"
+                class="semaforo pos-semaforo"
+                src="{{ url_for('static', filename='punto-gris.png') }}"
+                alt="Semáforo"
+            >
+        </div>
     </div>
-</div>
-
-
-
     {% include "footer.html" %}
 </body>
 </html>
-

@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from .converciones import semaforo  # pode importar outros depois
+from .coordenadas import semaforo  # pode importar outros depois
 
 js_bp = Blueprint('js', __name__)
 
