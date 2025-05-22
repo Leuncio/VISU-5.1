@@ -2,10 +2,12 @@
 
 
 // map
-    // semaforos
+   
+
+// semaforos
 const semaforo = document.getElementById("punto-semaforo");
 
-function atualizarPonto() {
+function atualizarSemaforo() {
     fetch("/api/punto_semaforo")
         .then(response => response.json())
         .then(data => {
@@ -22,9 +24,8 @@ function atualizarPonto() {
         });
 }
 
-atualizarPonto();
-setInterval(atualizarPonto, 5000);
-    // end semaforos
-// end mapa
+atualizarSemaforo();
+setInterval(atualizarSemaforo, 5000);
+
 
 
