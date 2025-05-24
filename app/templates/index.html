@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <!-- map -->
     <div class="map-container">
         <h1 class="titulo-mapa">Mapa</h1>
         <div class="map">
@@ -23,6 +24,30 @@
             >
         </div>
     </div>
+
+    <!-- Lista de ordenes  -->
+    <table class="table table-bordered border-primary">
+    <thead>
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Origen</th>
+        <th scope="col">Destino</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        </tr>
+        <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        </tr>
+    </tbody>
+    </table>
+
     {% include "footer.html" %}
 </body>
 </html>
