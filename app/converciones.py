@@ -18,3 +18,11 @@ def metros_a_css_porcentaje(x, y):
         "left": f"{left_pct:.2f}%",
         "top": f"{top_pct:.2f}%"
     }
+
+def numero_para_lista_binaria(numero):
+    return [int(bit) for bit in bin(numero)[2:]]
+
+
+convertido = numero_para_lista_binaria(5)
+
+print(f'El Numero convertido a binario es {convertido}')
