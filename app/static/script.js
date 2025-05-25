@@ -14,9 +14,9 @@ function atualizarSemaforo() {
             semaforo.style.left = data.left;
             semaforo.style.top = data.top;
 
-            if (data.color === "rojo") {
+            if (data.color === 0) {
                 semaforo.src = "/static/punto-rojo.png";
-            } else if (data.color === "verde") {
+            } else if (data.color === 1) {
                 semaforo.src = "/static/punto-verde.png";
             } else {
                 semaforo.src = "/static/punto-gris.png";
