@@ -1,7 +1,7 @@
 # coordenadas.py
 
 # This file contains functions for converting coordinates from meters to CSS percentage values
-from converciones import metros_a_css_porcentaje, numero_para_lista_binaria
+from .converciones import metros_a_css_porcentaje, numero_para_lista_binaria
 
 NUMERO_DE_SEMAFOFOS = 5
 
@@ -24,3 +24,6 @@ def obtener_semaforo(x, y, num_semaforos=NUMERO_DE_SEMAFOFOS):
 
 semaforo = obtener_semaforo(10, 20)
 print (semaforo)
+
+avg = metros_a_css_porcentaje(5, 5)
+avg["color"] = "rojo"
