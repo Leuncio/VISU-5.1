@@ -6,13 +6,13 @@
 </head>
 <body>
     <div class="layout-container">
-        <!-- map -->
+        <!-- Mapa -->
         <div class="map-container">
             <h1 class="titulo-mapa">Mapa</h1>
             <div class="map">
                 <img id="mapa-img" src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
 
-                <!-- Generar semáforos dinámicamente con Jinja -->
+                <!-- Semáforos dinámicos con Jinja -->
                 {% for semaforo in semaforos %}
                     <img 
                         id="{{ semaforo.id }}" 
@@ -23,7 +23,7 @@
                     >
                 {% endfor %}
 
-                <!-- Generar AGVs dinámicamente con Jinja -->
+                <!-- AGVs dinámicos con Jinja -->
                 {% for avg in agvs %}
                     <img 
                         id="{{ avg.id }}" 
@@ -39,10 +39,9 @@
             <div style="text-align: center; margin-top: 10px;">
                 <button type="button" id="botonRuta" class="btn btn-info">Mostrar Ruta</button>
             </div>
-
         </div>
 
-        <!-- Lista de ordenes -->
+        <!-- Lista de órdenes -->
         <div class="ordenes-container">
             <h1 class="titulo-ordenes">Ordenes</h1>
             <table class="table table-bordered border-primary">
@@ -67,6 +66,22 @@
             </tbody>
             </table>
         </div>
+
+        <!-- Acciones -->
+        <div class="acciones-container">
+            <h2 class="titulo-acciones">Acciones</h2>
+        </div>
+
+        <!-- Sección de AVGs -->
+        <div class="avgs-container">
+            <h2 class="titulo-avgs">AVGs</h2>
+            <div class="contador-botones">
+                <button id="botaoMenos" class="btn btn-danger">−</button>
+                <span id="contador">0</span>
+                <button id="botaoMas" class="btn btn-success">+</button>
+            </div>
+        </div>
+
     </div>
 
     {% include "footer.html" %}
