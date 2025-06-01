@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from .coordenadas import semaforos, avg  # pode importar outros depois
+from .coordenadas import semaforos, agvs  # pode importar outros depois
 
 js_bp = Blueprint('js', __name__)
 
@@ -9,4 +9,4 @@ def get_semaforo():
 
 @js_bp.route('/punto_avg')
 def get_avg():
-    return jsonify(avg)
+    return jsonify(agvs)

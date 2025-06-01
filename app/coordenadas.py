@@ -1,29 +1,30 @@
 # coordenadas.py
 
-# This file contains functions for converting coordinates from meters to CSS percentage values
+# Este archivo contiene funciones para convertir coordenadas de metros a porcentajes CSS
 from .converciones import metros_a_css_porcentaje, numero_para_lista_binaria
 
-NUMERO_DE_SEMAFOFOS = 5
+NUMERO_DE_SEMAFOROS = 5
+NUMERO_DE_AGVS = 3  # Puedes ajustar el número de AGVs según lo necesites
 
-def obtener_semaforo(x, y, num_semaforos=NUMERO_DE_SEMAFOFOS):
+def obtener_elementos(tipo, x, y, num_elementos):
     """
-    Obtiene las coordenadas del semáforo en formato CSS,
-    asignando un único bit a cada semáforo.
+    Obtiene las coordenadas de los elementos en formato CSS,
+    asignando un único bit a cada uno.
     """
-    semaforos = []
-    binario = numero_para_lista_binaria(NUMERO_DE_SEMAFOFOS)
+    elementos = []
+    binario = numero_para_lista_binaria(num_elementos)
 
-    for i in range(num_semaforos):
-        semaforo = metros_a_css_porcentaje(x, y)
-        semaforo["color"] = binario[i % len(binario)]  # Atribui um único bit
-        semaforo["id"] = f"semaforo-{i}"
-        semaforos.append(semaforo)
+    for i in range(num_elementos):
+        elemento = metros_a_css_porcentaje(x, y)
+        elemento["color"] = binario[i % len(binario)]  # Atribuye un único bit
+        elemento["id"] = f"{tipo}-{i}"
+        elementos.append(elemento)
 
-    return semaforos
+    return elementos
 
+# Obtener semáforos y AGVs
+semaforos = obtener_elementos("semaforo", 6, 6, NUMERO_DE_SEMAFOROS)
+agvs = obtener_elementos("agv", 5, 5, NUMERO_DE_AGVS)
 
-semaforos = obtener_semaforo(6,6)
-print (semaforos)
-
-avg = metros_a_css_porcentaje(5, 5)
-avg["color"] = "rojo"
+print(semaforos)
+print(agvs)

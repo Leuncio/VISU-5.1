@@ -23,12 +23,16 @@
                     >
                 {% endfor %}
 
-                <img
-                    id="punto-avg"
-                    class="avg"
-                    src="{{ url_for('static', filename='avg-rojo.png') }}"
-                    alt="AVG"
-                >
+                <!-- Generar AGVs dinámicamente con Jinja -->
+                {% for avg in agvs %}
+                    <img 
+                        id="{{ avg.id }}" 
+                        class="avg pos-avg" 
+                        src="{{ url_for('static', filename='avg-rojo.png') }}" 
+                        style="left: {{ avg.left }}; top: {{ avg.top }};" 
+                        alt="AGV"
+                    >
+                {% endfor %}
             </div>
         </div>
 
