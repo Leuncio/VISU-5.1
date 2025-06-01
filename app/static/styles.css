@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: 20px;
-    flex-wrap: wrap; /* empilha no mobile */
+    flex-wrap: wrap; /* Empilha no mobile */
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -22,9 +22,7 @@
     }
 }
 
-
-/* map */
-
+/* Mapa */
 .map-container {
     width: 100%;
     max-width: 800px;
@@ -40,12 +38,12 @@
 .map {
     position: relative;
     width: 100%;
-    aspect-ratio: 979 / 599; /* mantém a proporção da imagem */
+    aspect-ratio: 979 / 599; /* Mantém a proporção da imagem */
 }
 
 .map img:first-child {
     width: 100%;
-    height: auto; /* <-- permite que a altura seja proporcional à largura */
+    height: auto; /* Permite que a altura seja proporcional à largura */
     object-fit: contain;
     display: block;
 }
@@ -67,9 +65,7 @@
     transition: transform 0.2s ease-in-out; /* Para que la rotación sea suave */
 }
 
-
-/* ordenes */
-
+/* Ordenes */
 .ordenes-container {
     width: 100%;
     max-width: 800px;
@@ -83,70 +79,6 @@
 }
 
 /* Acciones */
-
-.acciones-container {
-    display: flex;
-    justify-content: center; /* Centra el contenido horizontalmente */
-    align-items: center; /* Centra el contenido verticalmente */
-    width: 100%; /* Que ocupe todo el ancho */
-    margin-top: 20px; /* Espacio entre las órdenes y el título */
-}
-
-.titulo-acciones {
-    font-size: 28px;
-    font-weight: bold;
-}
-
-
-.avgs-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Mantiene el título a la izquierda */
-    gap: 20px;
-    width: 100%;
-    margin-top: 20px; /* Espacio entre secciones */
-}
-
-.titulo-avgs {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.contador-botones {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 20px;
-}
-
-.contador-botones button {
-    padding: 5px 10px;
-    font-size: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#contador {
-    font-size: 24px;
-    font-weight: bold;
-    min-width: 30px;
-    text-align: center;
-}
-
-.acciones-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Título a la izquierda, botones a la derecha */
-    width: 100%;
-    margin-top: 20px;
-}
-
-
-
-
-
-
-
 .acciones-wrapper {
     display: flex;
     flex-direction: column; /* Asegura que el título "Acciones" esté arriba */
@@ -169,35 +101,67 @@
     width: 100%;
 }
 
+/* AVGs */
 .avgs-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Mantiene AVGs alineado a la izquierda */
-}
-
-.botones-acciones {
-    display: flex;
-    gap: 20px;
-    justify-content: flex-end; /* Alinea los botones a la derecha */
-}
-
-.columna {
-    display: flex;
-    flex-direction: column;
+    align-items: center; /* Centra el título con el contador */
     gap: 10px;
 }
 
+.titulo-avgs {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Botones */
+.botones-acciones {
+    display: flex;
+    flex-direction: column; /* Organiza las filas verticalmente */
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
 .boton-accion {
-    padding: 10px 16px;
+    width: 100px; /* Tamaño uniforme */
+    height: 40px;
+    padding: 5px;
     font-size: 16px;
     border-radius: 5px;
     background-color: #007bff;
     color: white;
     border: none;
     cursor: pointer;
+    text-align: center;
 }
 
 .boton-accion:hover {
     background-color: #0056b3;
 }
 
+
+
+
+/* Contador */
+.contador-botones {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.contador-botones button {
+    padding: 5px 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#contador {
+    font-size: 24px;
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
+}
