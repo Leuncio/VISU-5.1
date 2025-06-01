@@ -68,20 +68,39 @@
         </div>
 
         <!-- Acciones -->
-        <div class="acciones-container">
+        <div class="acciones-wrapper">
             <h2 class="titulo-acciones">Acciones</h2>
-        </div>
+            <div class="acciones-content">
+                <!-- Sección de AVGs -->
+                <div class="avgs-container">
+                    <h2 class="titulo-avgs">AVGs</h2>
+                    <div class="contador-botones">
+                        <button id="botaoMenos" class="btn btn-danger">−</button>
+                        <span id="contador">0</span>
+                        <button id="botaoMas" class="btn btn-success">+</button>
+                    </div>
+                </div>
 
-        <!-- Sección de AVGs -->
-        <div class="avgs-container">
-            <h2 class="titulo-avgs">AVGs</h2>
-            <div class="contador-botones">
-                <button id="botaoMenos" class="btn btn-danger">−</button>
-                <span id="contador">0</span>
-                <button id="botaoMas" class="btn btn-success">+</button>
+                <!-- Sección de botones -->
+                <div class="botones-acciones">
+                    <div class="columna">
+                        <button class="boton-accion">Botón 1</button>
+                        <button class="boton-accion">Botón 2</button>
+                        <button class="boton-accion">Botón 3</button>
+                        <button class="boton-accion">Botón 4</button>
+                        <button class="boton-accion">Botón 5</button>
+                    </div>
+                    <div class="columna">
+                        <button class="boton-accion">Botón 6</button>
+                        <button class="boton-accion">Botón 7</button>
+                        <button class="boton-accion">Botón 8</button>
+                        <button class="boton-accion">Botón 9</button>
+                        <button class="boton-accion">Botón 10</button>
+                    </div>
+                </div>
             </div>
         </div>
-
+        
     </div>
 
     {% include "footer.html" %}
