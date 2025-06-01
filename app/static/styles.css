@@ -64,8 +64,8 @@
     height: auto;
     transform: translate(-50%, -50%);
     pointer-events: none;
+    transition: transform 0.2s ease-in-out; /* Para que la rotación sea suave */
 }
-
 
 /* ordenes */
 

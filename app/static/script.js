@@ -1,4 +1,4 @@
-function atualizarElementos(url, claseElemento, colorMapping) {
+function atualizarElementos(url, claseElemento, colorMapping, includeRotation = false) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -10,6 +10,11 @@ function atualizarElementos(url, claseElemento, colorMapping) {
 
                     // Actualiza el color según el mapeo definido
                     elemento.src = colorMapping[elementoInfo.color] || colorMapping["default"];
+
+                    // Si el elemento tiene un ángulo, aplicar la rotación CSS
+                    if (includeRotation && elementoInfo.angulo !== undefined) {
+                        elemento.style.transform = `translate(-50%, -50%) rotate(${elementoInfo.angulo}deg)`;
+                    }
                 }
             });
         });
@@ -31,8 +36,8 @@ const colorMappingAvgs = {
 
 // Llamadas a la función genérica
 setInterval(() => atualizarElementos("/api/punto_semaforo", "semaforo", colorMappingSemaforos), 5000);
-setInterval(() => atualizarElementos("/api/punto_avg", "avg", colorMappingAvgs), 5000);
+setInterval(() => atualizarElementos("/api/punto_avg", "avg", colorMappingAvgs, true), 5000);
 
 // Llamada inicial para actualizar elementos desde el inicio
 atualizarElementos("/api/punto_semaforo", "semaforo", colorMappingSemaforos);
-atualizarElementos("/api/punto_avg", "avg", colorMappingAvgs);
+atualizarElementos("/api/punto_avg", "avg", colorMappingAvgs, true);
