@@ -1,7 +1,5 @@
 # converciones.py
 
-NUMERO_PARA_BINARIO = 6
-
 # Escala: 1 pixel = 0.05 metros
 ESCALA_METROS_POR_PIXEL = 0.05
 
@@ -14,7 +12,6 @@ def metros_a_css_porcentaje(x, y):
     Convierte coordenadas (x, y) en metros a porcentaje CSS,
     basada en el tamaño del mapa y el sistema de coordenadas invertido del CSS.
     """
-    # Asegurar que las coordenadas estén dentro de los límites del mapa
     x = min(max(x, 0), ANCHO_MAPA_M)
     y = min(max(y, 0), ALTO_MAPA_M)
 
@@ -26,35 +23,31 @@ def metros_a_css_porcentaje(x, y):
         "top": f"{top_pct:.2f}%"
     }
 
-def numero_para_lista_binaria(bits=5):
-    """
-    Convierte un número entero a una lista de bits con longitud fija.
-    """
-    binario = bin(NUMERO_PARA_BINARIO)[2:]  # Convierte a binario y elimina el prefijo '0b'
-    binario = binario.zfill(bits)  # Rellena con ceros a la izquierda para ajustar el tamaño
-    return [int(bit) for bit in binario]
 
-# Prueba de conversión binaria
-convertido = numero_para_lista_binaria()
-print(f'El número convertido a binario es {convertido}')
+def numero_para_lista_binaria(num_elementos):
+    """
+    Genera una lista binaria con la misma cantidad de bits que el número de elementos.
+    """
+    binario = bin(num_elementos)[2:].zfill(num_elementos)  # Convierte el número total de semáforos en binario
+    return [int(bit) for bit in binario[-num_elementos:]]  # Usa solo los bits necesarios
 
 
 def obtener_elementos(tipo, x, y, angulo, num_elementos):
     """
     Obtiene las coordenadas de los elementos en formato CSS,
-    asignando un único bit a cada uno. Permite definir X, Y y el ángulo para AGVs.
+    asignando un bit aleatorio a cada uno. Permite definir X, Y y el ángulo para AGVs.
     """
     elementos = []
     binario = numero_para_lista_binaria(num_elementos)
 
     for i in range(num_elementos):
-        elemento = metros_a_css_porcentaje(x[i], y[i])  # Usa listas para definir posiciones individuales
-        elemento["color"] = binario[i % len(binario)]  # Atribuye un único bit
+        elemento = metros_a_css_porcentaje(x[i], y[i])  # Conversión a CSS
+        elemento["color"] = binario[i]  # Asigna color aleatorio
         elemento["id"] = f"{tipo}-{i}"
 
         # Si el elemento es un AGV, agregar el ángulo definido
         if tipo == "agv":
-            elemento["angulo"] = angulo[i]  # Se pasa el ángulo desde la lista
+            elemento["angulo"] = angulo[i]
 
         elementos.append(elemento)
 

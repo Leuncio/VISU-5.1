@@ -1,20 +1,15 @@
-# coordenadas.py
+from .converciones import obtener_elementos
 
-from .converciones import metros_a_css_porcentaje, numero_para_lista_binaria, obtener_elementos
-
-# Coordenadas definidas manualmente
-NUMERO_DE_SEMAFOROS = 5
-COORDENADAS_SEMAFOROS_X = [6, 7, 8, 9, 10]
-COORDENADAS_SEMAFOROS_Y = [6, 7, 8, 9, 10]
-NUMERO_DE_AGVS = 3  # Puedes ajustar el número de AGVs según lo necesites
+# Coordenadas manuales
+NUMERO_DE_SEMAFOROS = 14
+COORDENADAS_SEMAFOROS_X = [37.6, 32.57, 20.5, 37, 20.5, 21.2, 22.2, 22.28, 25.6, 27.09, 41.3, 22.81, 41.95, 17.55]
+COORDENADAS_SEMAFOROS_Y = [22.55, 22.77, 15.38, 20.7, 14.23, 12.5, 11.5, 13.14, 21.39, 16.52, 20.51, 7.15, 18.62, 12.11]
+NUMERO_DE_AGVS = 3  
 COORDENADAS_AGVS_X = [5, 6, 19]
 COORDENADAS_AGVS_Y = [5, 6, 7]
-COORDENDAS_AGVS_A = [45, 90, 135]  # Definir manualmente los ángulos
+COORDENDAS_AGVS_A = [45, 90, 135]  
 
-
-# Coordenadas definidas manualmente
-
-# Obtener semáforos y AGVs con coordenadas específicas
+# Obtener datos procesados con número correcto de semáforos
 semaforos = obtener_elementos("semaforo", COORDENADAS_SEMAFOROS_X, COORDENADAS_SEMAFOROS_Y, [0] * NUMERO_DE_SEMAFOROS, NUMERO_DE_SEMAFOROS)
 agvs = obtener_elementos("agv", COORDENADAS_AGVS_X, COORDENADAS_AGVS_Y, COORDENDAS_AGVS_A , NUMERO_DE_AGVS)
 
