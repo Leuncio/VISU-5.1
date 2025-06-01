@@ -170,3 +170,35 @@
     min-width: 30px;
     text-align: center;
 }
+
+
+/* Listas */
+.listas-container {
+    display: flex;
+    margin-top: 40px;
+    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.lista {
+    flex: 1;
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-lista {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contenido-lista {
+    height: 200px; /* Define la altura de la lista */
+    overflow-y: scroll; /* Permite el desplazamiento vertical */
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
