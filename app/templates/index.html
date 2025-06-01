@@ -10,7 +10,7 @@
         <div class="map-container">
             <h1 class="titulo-mapa">Mapa</h1>
             <div class="map">
-                <img src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
+                <img id="mapa-img" src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
 
                 <!-- Generar semáforos dinámicamente con Jinja -->
                 {% for semaforo in semaforos %}
@@ -35,9 +35,9 @@
                 {% endfor %}
             </div>
 
-            <!-- Buton de ruta -->
+            <!-- Botón de ruta -->
             <div style="text-align: center; margin-top: 10px;">
-                <button type="button" class="btn btn-info">Mostrar Ruta</button>
+                <button type="button" id="botonRuta" class="btn btn-info">Mostrar Ruta</button>
             </div>
 
         </div>

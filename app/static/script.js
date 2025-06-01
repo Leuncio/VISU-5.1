@@ -1,4 +1,23 @@
-function atualizarElementos(url, claseElemento, colorMapping, includeRotation = false) {
+document.addEventListener("DOMContentLoaded", function () {
+    const botonRuta = document.getElementById("botonRuta");
+    const mapa = document.getElementById("mapa-img");
+
+    if (!botonRuta || !mapa) {
+        console.error("Elemento no encontrado: Verifica que 'botonRuta' y 'mapa-img' existen en el HTML.");
+        return;
+    }
+
+    let mostrandoRuta = false;
+
+    botonRuta.addEventListener("click", function () {
+        mostrandoRuta = !mostrandoRuta;
+        console.log(`Botón presionado! Cambiando imagen a: ${mostrandoRuta ? "mapa-ruta.png" : "mapa.png"}`);
+        mapa.src = mostrandoRuta ? "/static/mapa-ruta.png" : "/static/mapa.png";
+    });
+});
+
+// Función para actualizar semáforos y AGVs
+function atualizarElementos(url, colorMapping, includeRotation = false) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -7,17 +26,15 @@ function atualizarElementos(url, claseElemento, colorMapping, includeRotation = 
                 if (elemento) {
                     elemento.style.left = elementoInfo.left;
                     elemento.style.top = elementoInfo.top;
-
-                    // Actualiza el color según el mapeo definido
                     elemento.src = colorMapping[elementoInfo.color] || colorMapping["default"];
 
-                    // Si el elemento tiene un ángulo, aplicar la rotación CSS
                     if (includeRotation && elementoInfo.angulo !== undefined) {
                         elemento.style.transform = `translate(-50%, -50%) rotate(${elementoInfo.angulo}deg)`;
                     }
                 }
             });
-        });
+        })
+        .catch(error => console.error("Error al actualizar elementos:", error));
 }
 
 // Mapeo de imágenes para semáforos
@@ -34,10 +51,10 @@ const colorMappingAvgs = {
     default: "/static/agv-rojo.png"
 };
 
-// Llamadas a la función genérica
-setInterval(() => atualizarElementos("/api/punto_semaforo", "semaforo", colorMappingSemaforos), 5000);
-setInterval(() => atualizarElementos("/api/punto_avg", "avg", colorMappingAvgs, true), 5000);
+// Actualización automática cada 5 segundos
+setInterval(() => atualizarElementos("/api/punto_semaforo", colorMappingSemaforos), 5000);
+setInterval(() => atualizarElementos("/api/punto_avg", colorMappingAvgs, true), 5000);
 
-// Llamada inicial para actualizar elementos desde el inicio
-atualizarElementos("/api/punto_semaforo", "semaforo", colorMappingSemaforos);
-atualizarElementos("/api/punto_avg", "avg", colorMappingAvgs, true);
+// Llamada inicial para actualizar elementos
+atualizarElementos("/api/punto_semaforo", colorMappingSemaforos);
+atualizarElementos("/api/punto_avg", colorMappingAvgs, true);
