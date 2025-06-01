@@ -37,3 +37,25 @@ def numero_para_lista_binaria(bits=5):
 # Prueba de conversión binaria
 convertido = numero_para_lista_binaria()
 print(f'El número convertido a binario es {convertido}')
+
+
+def obtener_elementos(tipo, x, y, angulo, num_elementos):
+    """
+    Obtiene las coordenadas de los elementos en formato CSS,
+    asignando un único bit a cada uno. Permite definir X, Y y el ángulo para AGVs.
+    """
+    elementos = []
+    binario = numero_para_lista_binaria(num_elementos)
+
+    for i in range(num_elementos):
+        elemento = metros_a_css_porcentaje(x[i], y[i])  # Usa listas para definir posiciones individuales
+        elemento["color"] = binario[i % len(binario)]  # Atribuye un único bit
+        elemento["id"] = f"{tipo}-{i}"
+
+        # Si el elemento es un AGV, agregar el ángulo definido
+        if tipo == "agv":
+            elemento["angulo"] = angulo[i]  # Se pasa el ángulo desde la lista
+
+        elementos.append(elemento)
+
+    return elementos

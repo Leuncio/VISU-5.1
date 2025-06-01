@@ -1,5 +1,6 @@
-# Este archivo contiene funciones para convertir coordenadas de metros a porcentajes CSS
-from .converciones import metros_a_css_porcentaje, numero_para_lista_binaria
+# coordenadas.py
+
+from .converciones import metros_a_css_porcentaje, numero_para_lista_binaria, obtener_elementos
 
 # Coordenadas definidas manualmente
 NUMERO_DE_SEMAFOROS = 5
@@ -10,27 +11,6 @@ COORDENADAS_AGVS_X = [5, 6, 19]
 COORDENADAS_AGVS_Y = [5, 6, 7]
 COORDENDAS_AGVS_A = [45, 90, 135]  # Definir manualmente los ángulos
 
-
-def obtener_elementos(tipo, x, y, angulo, num_elementos):
-    """
-    Obtiene las coordenadas de los elementos en formato CSS,
-    asignando un único bit a cada uno. Permite definir X, Y y el ángulo para AGVs.
-    """
-    elementos = []
-    binario = numero_para_lista_binaria(num_elementos)
-
-    for i in range(num_elementos):
-        elemento = metros_a_css_porcentaje(x[i], y[i])  # Usa listas para definir posiciones individuales
-        elemento["color"] = binario[i % len(binario)]  # Atribuye un único bit
-        elemento["id"] = f"{tipo}-{i}"
-
-        # Si el elemento es un AGV, agregar el ángulo definido
-        if tipo == "agv":
-            elemento["angulo"] = angulo[i]  # Se pasa el ángulo desde la lista
-
-        elementos.append(elemento)
-
-    return elementos
 
 # Coordenadas definidas manualmente
 
