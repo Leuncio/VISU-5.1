@@ -22,8 +22,8 @@ def obtener_semaforo(x, y, num_semaforos=NUMERO_DE_SEMAFOFOS):
     return semaforos
 
 
-semaforo = obtener_semaforo(10, 20)
-print (semaforo)
+semaforos = obtener_semaforo(6,6)
+print (semaforos)
 
 avg = metros_a_css_porcentaje(5, 5)
 avg["color"] = "rojo"

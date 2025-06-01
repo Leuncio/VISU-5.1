@@ -11,42 +11,48 @@
             <h1 class="titulo-mapa">Mapa</h1>
             <div class="map">
                 <img src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
-                <img
-                    id="punto-semaforo"
-                    class="semaforo pos-semaforo"
-                    src="{{ url_for('static', filename='punto-gris.png') }}"
-                    alt="Semáforo"
-                >
+
+                <!-- Generar semáforos dinámicamente con Jinja -->
+                {% for semaforo in semaforos %}
+                    <img 
+                        id="{{ semaforo.id }}" 
+                        class="semaforo pos-semaforo" 
+                        src="{{ url_for('static', filename='punto-gris.png') }}" 
+                        style="left: {{ semaforo.left }}; top: {{ semaforo.top }};" 
+                        alt="Semáforo"
+                    >
+                {% endfor %}
+
                 <img
                     id="punto-avg"
-                    class ="avg"
+                    class="avg"
                     src="{{ url_for('static', filename='avg-rojo.png') }}"
-                    alt="Semáforo"
+                    alt="AVG"
                 >
             </div>
         </div>
 
-        <!-- Lista de ordenes  -->
+        <!-- Lista de ordenes -->
         <div class="ordenes-container">
             <h1 class="titulo-ordenes">Ordenes</h1>
             <table class="table table-bordered border-primary">
             <thead>
                 <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Origen</th>
-                <th scope="col">Destino</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Origen</th>
+                    <th scope="col">Destino</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
                 </tr>
                 <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
                 </tr>
             </tbody>
             </table>

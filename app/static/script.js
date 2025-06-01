@@ -11,16 +11,21 @@ function atualizarSemaforo() {
     fetch("/api/punto_semaforo")
         .then(response => response.json())
         .then(data => {
-            semaforo.style.left = data.left;
-            semaforo.style.top = data.top;
-
-            if (data.color === 0) {
-                semaforo.src = "/static/punto-rojo.png";
-            } else if (data.color === 1) {
-                semaforo.src = "/static/punto-verde.png";
-            } else {
-                semaforo.src = "/static/punto-gris.png";
-            }
+            data.forEach(semaforoInfo => {
+                const semaforo = document.getElementById(semaforoInfo.id);
+                if (semaforo) {
+                    semaforo.style.left = semaforoInfo.left;
+                    semaforo.style.top = semaforoInfo.top;
+                    
+                    if (semaforoInfo.color === 0) {
+                        semaforo.src = "/static/punto-rojo.png";
+                    } else if (semaforoInfo.color === 1) {
+                        semaforo.src = "/static/punto-verde.png";
+                    } else {
+                        semaforo.src = "/static/punto-gris.png";
+                    }
+                }
+            });
         });
 }
 
