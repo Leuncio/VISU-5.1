@@ -43,7 +43,7 @@
 
 .map img:first-child {
     width: 100%;
-    height: auto; /* Permite que a altura seja proporcional à largura */
+    height: auto; /* Permite que la altura sea proporcional a la anchura */
     object-fit: contain;
     display: block;
 }
@@ -81,7 +81,7 @@
 /* Acciones */
 .acciones-wrapper {
     display: flex;
-    flex-direction: column; /* Asegura que el título "Acciones" esté arriba */
+    flex-direction: column; /* Mantiene el título "Acciones" arriba */
     align-items: center;
     width: 100%;
     margin-top: 20px;
@@ -96,7 +96,7 @@
 
 .acciones-content {
     display: flex;
-    justify-content: space-between; /* Distribuye AVGs a la izquierda y botones a la derecha */
+    justify-content: space-between; /* Mantiene AVGs a la izquierda y botones a la derecha */
     align-items: center;
     width: 100%;
 }
@@ -105,23 +105,38 @@
 .avgs-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra el título con el contador */
+    align-items: center; /* Centra el título "AVGs" en relación al contador */
+    justify-content: center; /* Asegura el centrado vertical */
+    flex: 1; /* Permite que ocupe espacio proporcional */
     gap: 10px;
 }
 
 .titulo-avgs {
     font-size: 24px;
     font-weight: bold;
-    text-align: center;
+    text-align: center; /* Centra el título */
+}
+
+.contador-botones {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center; /* Centra el contador debajo del título "AVGs" */
 }
 
 /* Botones */
 .botones-acciones {
     display: flex;
-    flex-direction: column; /* Organiza las filas verticalmente */
+    flex-direction: column; /* Organiza las filas una debajo de la otra */
     gap: 10px;
     justify-content: center;
     align-items: center;
+}
+
+.fila {
+    display: flex;
+    gap: 10px;
+    justify-content: center; /* Asegura que los botones estén en línea horizontal */
 }
 
 .boton-accion {
@@ -141,17 +156,7 @@
     background-color: #0056b3;
 }
 
-
-
-
 /* Contador */
-.contador-botones {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 20px;
-}
-
 .contador-botones button {
     padding: 5px 10px;
     font-size: 20px;
