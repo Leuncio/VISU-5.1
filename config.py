@@ -2,8 +2,13 @@
 
 import os
 
-# Set the URI for the database
-SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI") or "sqlite:///database_entry_gui.db"
+# Define multiple SQLite databases
+SQLALCHEMY_DATABASES = {
+    "entry_gui": f"sqlite:///{os.path.join(os.getcwd(), 'instance', 'database_entry_gui.db')}",
+    "ordenes": f"sqlite:///{os.path.join(os.getcwd(), 'instance', 'database_ordenes.db')}",
+    "out_gui": f"sqlite:///{os.path.join(os.getcwd(), 'instance', 'database_out_gui.db')}",
+    "semaforos": f"sqlite:///{os.path.join(os.getcwd(), 'instance', 'database_semaforos.db')}",
+}
 
-# Add the secret key for CSRF protection
+# Secret key for Flask security (unrelated to DB but needed)
 SECRET_KEY = os.environ.get('SECRET_KEY') or 'a_default_secret_key'
