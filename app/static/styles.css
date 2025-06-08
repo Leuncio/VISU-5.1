@@ -172,33 +172,13 @@
 }
 
 
-/* Listas */
-.listas-container {
-    display: flex;
-    margin-top: 40px;
-    gap: 20px;
-    justify-content: space-between;
-    width: 100%;
-}
+/* info */
 
-.lista {
-    flex: 1;
-    max-width: 30%;
-    display: flex;
-    flex-direction: column;
-}
-
-.titulo-lista {
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.contenido-lista {
-    height: 200px; /* Define la altura de la lista */
-    overflow-y: scroll; /* Permite el desplazamiento vertical */
-    border: 1px solid #ccc;
-    padding: 10px;
+punto{
+    position: absolute;
+    width: 10px;
+    height: auto;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
 }
 

@@ -100,55 +100,16 @@
                 </div>
             </div>
         </div>
-
-        <!-- Sección de Listas -->
-        <div class="listas-container">
-            <div class="lista">
-                <h3 class="titulo-lista">Comunicaciones</h3>
-                <div class="contenido-lista">
-                    {% for comunicacion in comunicaciones %}
-                        <ul>
-                            {{ comunicacion }}
-                        </ul>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="lista">
-                <h3 class="titulo-lista">Entradas</h3>
-                <div class="contenido-lista">
-                    <ul>
-                        <li>Elemento A</li>
-                        <li>Elemento B</li>
-                        <li>Elemento C</li>
-                        <li>Elemento D</li>
-                        <li>Elemento E</li>
-                        <li>Elemento F</li>
-                        <li>Elemento G</li>
-                        <li>Elemento H</li>
-                        <li>Elemento I</li>
-                        <li>Elemento J</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="lista">
-                <h3 class="titulo-lista">Salidas</h3>
-                <div class="contenido-lista">
-                    <ul>
-                        <li>Ítem X</li>
-                        <li>Ítem Y</li>
-                        <li>Ítem Z</li>
-                        <li>Ítem W</li>
-                        <li>Ítem V</li>
-                        <li>Ítem U</li>
-                        <li>Ítem T</li>
-                        <li>Ítem S</li>
-                        <li>Ítem R</li>
-                        <li>Ítem Q</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         
+        <!-- Info -->
+        <H2>Comunicaciones</H2>
+        <p class="punto">PLC:{{url_for('static', 'punto-gris')}}</p>
+
+        <h2>Entradas</h2>
+        In: {}
+        
+        <h2>Salidas</h2>
+
     </div>
 
     {% include "footer.html" %}
