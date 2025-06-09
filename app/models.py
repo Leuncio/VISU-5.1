@@ -1,50 +1,38 @@
 # models
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import Integer, Float, String
-from config import SQLALCHEMY_DATABASES
-from sqlalchemy import create_engine
 
-# Create a base for SQLAlchemy models
-class Base(DeclarativeBase):
-    pass
-
-# 🔹 Create separate database connections using `config.py`
-db_entry = create_engine(SQLALCHEMY_DATABASES["entry_gui"])
-db_ordenes = create_engine(SQLALCHEMY_DATABASES["ordenes"])
-db_out_gui = create_engine(SQLALCHEMY_DATABASES["out_gui"])
-db_semaforos = create_engine(SQLALCHEMY_DATABASES["semaforos"])
+db = SQLAlchemy()  # Single SQLAlchemy instance
 
 # 🔹 Define models
-class DatabaseEntryGUI(Base):
+class DatabaseEntryGUI(db.Model):
     __tablename__ = "database_entry_gui"
+    __bind_key__ = "entry_gui"  # 🔹 Bind this model to database_entry_gui.db
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     AVG: Mapped[float] = mapped_column(Float, nullable=False, default=1.0)
     X: Mapped[float] = mapped_column(Float, nullable=False, default=1.0)
     Y: Mapped[float] = mapped_column(Float, nullable=False, default=1.0)
     A: Mapped[float] = mapped_column(Float, nullable=False, default=1.0)
 
-class DatabaseOrdenes(Base):
+class DatabaseOrdenes(db.Model):
     __tablename__ = "database_ordenes"
+    __bind_key__ = "ordenes"  # 🔹 Bind this model to database_ordenes.db
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     origen: Mapped[String] = mapped_column(String, nullable=False)
     destino: Mapped[String] = mapped_column(String, nullable=False)
 
-class DatabaseOutGUI(Base):
+class DatabaseOutGUI(db.Model):
     __tablename__ = "database_out_gui"
+    __bind_key__ = "out_gui"  # 🔹 Bind this model to database_out_gui.db
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     numero_agvs: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     out_botones: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
-class DatabaseSemaforos(Base):
+class DatabaseSemaforos(db.Model):
     __tablename__ = "database_semaforos"
+    __bind_key__ = "semaforos"  # 🔹 Bind this model to database_semaforos.db
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     X: Mapped[float] = mapped_column(Float, nullable=False)
     Y: Mapped[float] = mapped_column(Float, nullable=False)
-
-# 🔹 Create tables in their respective databases
-Base.metadata.create_all(db_entry)
-Base.metadata.create_all(db_ordenes)
-Base.metadata.create_all(db_out_gui)
-Base.metadata.create_all(db_semaforos)

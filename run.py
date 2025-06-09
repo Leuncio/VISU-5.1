@@ -1,15 +1,10 @@
-# run.py
-
-from app import create_app  # Import the create_app function to initialize the Flask application
+from app import create_app
 from app.models import db
 
-app = create_app()  # Create the Flask application instance
+app = create_app()
 
-# Ensure the database tables are created
 with app.app_context():
-    db.create_all()
-
-
+    db.create_all()  # 🔹 Creates all bound databases
 
 if __name__ == "__main__":
     app.run(debug=True, port=3030)
