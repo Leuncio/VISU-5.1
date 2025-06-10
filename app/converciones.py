@@ -1,5 +1,8 @@
 # converciones.py
 
+from flask import current_app
+from app.models import db, DatabaseSemaforos, DatabaseEntryGUI
+
 # Escala: 1 pixel = 0.05 metros
 ESCALA_METROS_POR_PIXEL = 0.05
 
@@ -52,3 +55,23 @@ def obtener_elementos(tipo, x, y, angulo, num_elementos):
         elementos.append(elemento)
 
     return elementos
+
+
+def dbs_para_listas():
+    """Consulta a DB e retorna as coordenadas em listas."""
+    with current_app.app_context():  # ✅ Correct way to ensure Flask context
+        # 🔹 Recupera todos os semáforos
+        semaforos = DatabaseSemaforos.query.all()
+        DB_NUMERO_SEMAFOROS = len(semaforos)
+        DB_COORDENADAS_SEMAFOROS_X = [s.X for s in semaforos]
+        DB_COORDENADAS_SEMAFOROS_Y = [s.Y for s in semaforos]
+
+        # 🔹 Recupera todos os AGVs
+        agvs = DatabaseEntryGUI.query.all()
+        DB_NUMERO_DE_AGVS = len(agvs)
+        DB_COORDENADAS_AGVS_X = [a.X for a in agvs]
+        DB_COORDENADAS_AGVS_Y = [a.Y for a in agvs]
+        DB_COORDENDAS_AGVS_A = [a.A for a in agvs]
+
+    return DB_NUMERO_SEMAFOROS, DB_COORDENADAS_SEMAFOROS_X, DB_COORDENADAS_SEMAFOROS_Y, DB_NUMERO_DE_AGVS, DB_COORDENADAS_AGVS_X, DB_COORDENADAS_AGVS_Y, DB_COORDENDAS_AGVS_A
+
