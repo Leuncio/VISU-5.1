@@ -1,15 +1,16 @@
 from flask import current_app
 from .converciones import obtener_elementos, dbs_para_listas
-from app import create_app
 
-app = create_app()
+def load_data():
+    """Load database values inside Flask's context dynamically."""
+    with current_app.app_context():  # ✅ Ensures database queries run in a valid Flask context
+        DB_NUMERO_SEMAFOROS, DB_COORDENADAS_SEMAFOROS_X, DB_COORDENADAS_SEMAFOROS_Y, DB_NUMERO_DE_AGVS, DB_COORDENADAS_AGVS_X, DB_COORDENADAS_AGVS_Y, DB_COORDENDAS_AGVS_A = dbs_para_listas()
 
-with app.app_context():  # ✅ Activate Flask context before calling the function
-    DB_NUMERO_SEMAFOROS, DB_COORDENADAS_SEMAFOROS_X, DB_COORDENADAS_SEMAFOROS_Y, DB_NUMERO_DE_AGVS, DB_COORDENADAS_AGVS_X, DB_COORDENADAS_AGVS_Y, DB_COORDENDAS_AGVS_A = dbs_para_listas()
+    semaforos = obtener_elementos("semaforo", DB_COORDENADAS_SEMAFOROS_X, DB_COORDENADAS_SEMAFOROS_Y, [0] * DB_NUMERO_SEMAFOROS, DB_NUMERO_SEMAFOROS)
+    agvs = obtener_elementos("agv", DB_COORDENADAS_AGVS_X, DB_COORDENADAS_AGVS_Y, DB_COORDENDAS_AGVS_A, DB_NUMERO_DE_AGVS)
 
-# 🔹 Process the data correctly
-semaforos = obtener_elementos("semaforo", DB_COORDENADAS_SEMAFOROS_X, DB_COORDENADAS_SEMAFOROS_Y, [0] * DB_NUMERO_SEMAFOROS, DB_NUMERO_SEMAFOROS)
-agvs = obtener_elementos("agv", DB_COORDENADAS_AGVS_X, DB_COORDENADAS_AGVS_Y, DB_COORDENDAS_AGVS_A, DB_NUMERO_DE_AGVS)
+    return semaforos, agvs  # ✅ Return instead of defining global variables
+
 
 
 # Coordenadas manuales
@@ -26,5 +27,5 @@ agvs = obtener_elementos("agv", DB_COORDENADAS_AGVS_X, DB_COORDENADAS_AGVS_Y, DB
 # agvs = obtener_elementos("agv", COORDENADAS_AGVS_X, COORDENADAS_AGVS_Y, COORDENDAS_AGVS_A , NUMERO_DE_AGVS)
 
 
-print(semaforos)
-print(agvs)
+# print(semaforos)
+# print(agvs)

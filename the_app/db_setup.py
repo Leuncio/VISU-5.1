@@ -1,6 +1,6 @@
 # de_setup
 
-from app.models import db, DatabaseEntryGUI, DatabaseOrdenes, DatabaseOutGUI
+from the_app.models import db, DatabaseEntryGUI, DatabaseOrdenes, DatabaseOutGUI  # ✅ Use the correct module name
 from flask import current_app
 
 def insert_default_data():
