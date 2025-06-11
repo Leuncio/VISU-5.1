@@ -54,7 +54,7 @@
                         <th scope="col">Destino</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="ordenes-container">
                     {% for orden in ordenes %}
                         <tr>
                             <th scope="row">{{ orden.id }}</th>  <!-- ✅ ID desde DB -->

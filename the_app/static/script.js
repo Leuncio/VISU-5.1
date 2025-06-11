@@ -73,6 +73,43 @@ const colorMappingAvgs = {
     default: "/static/agv-rojo.png"
 };
 
+
+
+function actualizarOrdenes() {
+    fetch("/api/ordenes")
+        .then(response => response.json())
+        .then(ordenes => {
+            const tablaOrdenes = document.getElementById("ordenes-container");
+            tablaOrdenes.innerHTML = ""; // ✅ Limpiar tabla antes de actualizar
+
+            ordenes.forEach(orden => {
+                const fila = document.createElement("tr");
+                fila.innerHTML = `
+                    <th scope="row">${orden.id}</th>
+                    <td>${orden.origen}</td>
+                    <td>${orden.destino}</td>
+                `;
+                tablaOrdenes.appendChild(fila);  // ✅ Añadir nueva fila con datos actualizados
+            });
+
+            if (ordenes.length === 0) {
+                tablaOrdenes.innerHTML = `<tr><td colspan="3">No hay órdenes registradas.</td></tr>`; // ✅ Mensaje si está vacío
+            }
+        })
+        .catch(error => console.error("Error al actualizar órdenes:", error));
+}
+
+// 🚀 Actualización automática cada 5 segundos
+setInterval(actualizarOrdenes, 5000);
+
+// 🚀 Llamada inicial para cargar datos al abrir la página
+actualizarOrdenes();
+
+
+
+
+
+
 // Actualización automática cada 5 segundos
 setInterval(() => atualizarElementos("/api/punto_semaforo", colorMappingSemaforos), 5000);
 setInterval(() => atualizarElementos("/api/punto_avg", colorMappingAvgs, true), 5000);
