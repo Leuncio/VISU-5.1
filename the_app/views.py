@@ -1,20 +1,18 @@
-# views.py
+# views
 
 from flask import Blueprint, render_template
 from .coordenadas import load_data
-from .listas_on_off import comunicaciones
+from the_app.models import DatabaseOrdenes
+from flask import current_app
 
-# Create a Blueprint for the main application
+# Crear el Blueprint
 main_bp = Blueprint('main', __name__, template_folder='templates')
 
 @main_bp.route('/', methods=['GET', 'POST'])
 def home():
-    # 🚀 Load database data dynamically inside the request
+    with current_app.app_context():  # ✅ Asegurar contexto de Flask
+        ordenes = DatabaseOrdenes.query.all()  # 🔹 Obtener órdenes desde la DB
+
     semaforos, agvs = load_data()  
 
-    # Debugging info
-    print(f"semaforo en el server: {semaforos}")
-    print(f"avgs en el server: {agvs}")
-    print(comunicaciones)
-
-    return render_template('index.html', semaforos=semaforos, agvs=agvs, comunicaciones=comunicaciones)
+    return render_template('index.html', semaforos=semaforos, agvs=agvs, ordenes=ordenes)

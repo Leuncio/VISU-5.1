@@ -21,6 +21,8 @@
                         style="left: {{ semaforo.left }}; top: {{ semaforo.top }};" 
                         alt="Semáforo"
                     >
+                {% else %}
+                    <p>No hay semáforos registrados en la DB.</p>  <!-- ✅ Mensaje si está vacío -->
                 {% endfor %}
 
                 <!-- AGVs dinámicos con Jinja -->
@@ -45,25 +47,26 @@
         <div class="ordenes-container">
             <h1 class="titulo-ordenes">Ordenes</h1>
             <table class="table table-bordered border-primary">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Origen</th>
-                    <th scope="col">Destino</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                </tr>
-            </tbody>
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Origen</th>
+                        <th scope="col">Destino</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for orden in ordenes %}
+                        <tr>
+                            <th scope="row">{{ orden.id }}</th>  <!-- ✅ ID desde DB -->
+                            <td>{{ orden.origen }}</td>  <!-- ✅ Origen desde DB -->
+                            <td>{{ orden.destino }}</td>  <!-- ✅ Destino desde DB -->
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">No hay órdenes registradas.</td>  <!-- ✅ Mensaje si la tabla está vacía -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
 
@@ -102,14 +105,13 @@
         </div>
         
         <!-- Info -->
-        <H2>Comunicaciones</H2>
-        <p class="punto">PLC:{{ url_for('static', filename='punto-gris.png') }}</p>
+        <h2>Comunicaciones</h2>
+        <p class="punto">PLC: {{ url_for('static', filename='punto-gris.png') }}</p>
 
         <h2>Entradas</h2>
         In:
         
         <h2>Salidas</h2>
-
     </div>
 
     {% include "footer.html" %}
