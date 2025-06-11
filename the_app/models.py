@@ -34,5 +34,5 @@ class DatabaseSemaforos(db.Model):
     __tablename__ = "database_semaforos"
     __bind_key__ = "semaforos"  # 🔹 Bind this model to database_semaforos.db
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    X: Mapped[float] = mapped_column(Float, nullable=False)
-    Y: Mapped[float] = mapped_column(Float, nullable=False)
+    X: Mapped[float] = mapped_column(Float, nullable=False, default=25.0)
+    Y: Mapped[float] = mapped_column(Float, nullable=False, default=15.0)

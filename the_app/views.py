@@ -1,7 +1,7 @@
 # views.py
 
 from flask import Blueprint, render_template
-from .coordenadas import load_data  # ✅ Import function instead of variables
+from .coordenadas import load_data
 from .listas_on_off import comunicaciones
 
 # Create a Blueprint for the main application

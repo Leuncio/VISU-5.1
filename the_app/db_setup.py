@@ -1,6 +1,6 @@
 # de_setup
 
-from the_app.models import db, DatabaseEntryGUI, DatabaseOrdenes, DatabaseOutGUI  # ✅ Use the correct module name
+from the_app.models import db, DatabaseEntryGUI, DatabaseOrdenes, DatabaseOutGUI, DatabaseSemaforos
 from flask import current_app
 
 def insert_default_data():
@@ -23,5 +23,16 @@ def insert_default_data():
         if not DatabaseOutGUI.query.first():
             default_out_gui = DatabaseOutGUI(numero_agvs=1, out_botones=0)
             db.session.add(default_out_gui)
+
+
+        # 🔹 Insere semáforos padrão se a tabela estiver vazia
+        if not DatabaseSemaforos.query.first():
+            default_semaforos = [
+                DatabaseSemaforos(X=9.0, Y=7.0),
+                DatabaseSemaforos(X=4.0, Y=3.0),
+                DatabaseSemaforos(X=15.0, Y=10.0)  # Adiciona mais alguns exemplos
+            ]
+            db.session.add_all(default_semaforos)
+
 
         db.session.commit()  # Save changes

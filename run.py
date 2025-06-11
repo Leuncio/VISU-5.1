@@ -6,7 +6,7 @@ app = create_app()
 
 with app.app_context():
     insert_default_data()
-    semaforos, agvs = load_data()  # ✅ Load data correctly inside Flask context
+    semaforos, agvs = load_data()
 
 if __name__ == "__main__":
     app.run(debug=True, port=3030)
