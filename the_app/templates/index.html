@@ -105,8 +105,19 @@
         </div>
         
         <!-- Info -->
-        <h2>Comunicaciones</h2>
-        <p class="punto">PLC: {{ url_for('static', filename='punto-gris.png') }}</p>
+        <div class="comunicaciones-container">
+            <h2 class="titulo-seccion">Comunicaciones</h2>
+            <div class="info-contenedor">
+                <p class="punto"><span class="etiqueta">PLC:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+                <p class="punto"><span class="etiqueta">AGV1:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+                <p class="punto"><span class="etiqueta">AGV2:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+                <p class="punto"><span class="etiqueta">AGV3:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+                <p class="punto"><span class="etiqueta">PLC4:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+            </div>
+        </div>
+
+
+
 
         <h2>Entradas</h2>
         In:

@@ -174,11 +174,44 @@
 
 /* info */
 
-punto{
-    position: absolute;
-    width: 10px;
-    height: auto;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
+.comunicaciones-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 30px auto 0 auto;
+    padding: 10px 20px;
 }
+
+.titulo-seccion {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.info-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-left: 4px;
+}
+
+.punto {
+    margin: 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.punto img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+
+
+
+
 
