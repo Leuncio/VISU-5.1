@@ -105,41 +105,47 @@
         </div>
         
         <!-- Info -->
-        <div class="comunicaciones-container">
-            <h2 class="titulo-seccion">Comunicaciones</h2>
-            <div class="info-contenedor">
-                <p class="punto"><span class="etiqueta">PLC:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
-                <p class="punto"><span class="etiqueta">AGV1:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
-                <p class="punto"><span class="etiqueta">AGV2:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
-                <p class="punto"><span class="etiqueta">AGV3:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
-                <p class="punto"><span class="etiqueta">PLC4:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+        <div class="estado-grid">
+            <!-- Comunicaciones -->
+            <div class="estado-col">
+                <h2 class="titulo-seccion">Comunicaciones</h2>
+                <div class="info-contenedor">
+                    <p class="punto"><span class="etiqueta">PLC:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+                    <p class="punto"><span class="etiqueta">AGV1:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+                    <p class="punto"><span class="etiqueta">AGV2:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+                    <p class="punto"><span class="etiqueta">AGV3:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+                    <p class="punto"><span class="etiqueta">PLC4:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+                </div>
+            </div>
+
+            <!-- Entradas -->
+            <div class="estado-col">
+                <h2 class="titulo-seccion">Entradas</h2>
+                <div class="info-contenedor">
+                    {% for semaforo in semaforos[:3] %}
+                        <p class="punto">
+                            <span class="etiqueta">in {{ loop.index0 }}:</span>
+                            <img src="{{ url_for('static', filename='punto-verde.png') if semaforo.color == 1 else url_for('static', filename='punto-rojo.png') }}">
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Salidas -->
+            <div class="estado-col">
+                <h2 class="titulo-seccion">Salidas</h2>
+                <div class="info-contenedor">
+                    {% for i in range(4) %}
+                        <p class="punto">
+                            <span class="etiqueta">OUT {{ i }}:</span>
+                            <img src="{{ url_for('static', filename='punto-verde.png') }}">
+                        </p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
 
 
-
-
-        <h2>Entradas</h2>
-        <div class="info-contenedor">
-            {% for semaforo in semaforos[:3] %}
-                <p class="punto">
-                    <span class="etiqueta">in {{ loop.index0 }}:</span>
-                    <img src="{{ url_for('static', filename='punto-verde.png') if semaforo.color == 1 else url_for('static', filename='punto-rojo.png') }}">
-                </p>
-            {% endfor %}
-        </div>
-
-
-        
-        <h2>Salidas</h2>
-        <div class="info-contenedor">
-            {% for i in range(4) %}
-                <p class="punto">
-                    <span class="etiqueta">OUT {{ i }}:</span>
-                    <img src="{{ url_for('static', filename='punto-verde.png') }}">
-                </p>
-            {% endfor %}
-        </div>
 
         
     </div>

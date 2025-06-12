@@ -174,18 +174,26 @@
 
 /* info */
 
-.comunicaciones-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 30px auto 0 auto;
-    padding: 10px 20px;
+.estado-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.estado-col {
+    flex: 1 1 30%;
+    min-width: 250px;
 }
 
 .titulo-seccion {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
-    text-align: left;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .info-contenedor {
@@ -201,6 +209,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    justify-content: flex-start;
 }
 
 .punto img {
