@@ -219,8 +219,17 @@
     vertical-align: middle;
 }
 
+.estado-mensajes {
+    width: 100%;
+    max-width: 800px;
+    margin: 60px auto 40px auto;  /* más separado y centrado */
+    padding: 10px 20px;
+}
 
-
-
-
-
+.estado-mensajes .punto {
+    margin-top: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
