@@ -80,7 +80,7 @@ function actualizarOrdenes() {
         .then(response => response.json())
         .then(ordenes => {
             const tablaOrdenes = document.getElementById("ordenes-container");
-            tablaOrdenes.innerHTML = ""; // ✅ Limpiar tabla antes de actualizar
+            tablaOrdenes.innerHTML = ""; // Limpiar tabla antes de actualizar
 
             ordenes.forEach(orden => {
                 const fila = document.createElement("tr");
@@ -89,7 +89,7 @@ function actualizarOrdenes() {
                     <td>${orden.origen}</td>
                     <td>${orden.destino}</td>
                 `;
-                tablaOrdenes.appendChild(fila);  // ✅ Añadir nueva fila con datos actualizados
+                tablaOrdenes.appendChild(fila);  // Añadir nueva fila con datos actualizados
             });
 
             if (ordenes.length === 0) {

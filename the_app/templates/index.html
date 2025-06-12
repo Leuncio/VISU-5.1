@@ -57,13 +57,13 @@
                 <tbody id="ordenes-container">
                     {% for orden in ordenes %}
                         <tr>
-                            <th scope="row">{{ orden.id }}</th>  <!-- ✅ ID desde DB -->
-                            <td>{{ orden.origen }}</td>  <!-- ✅ Origen desde DB -->
-                            <td>{{ orden.destino }}</td>  <!-- ✅ Destino desde DB -->
+                            <th scope="row">{{ orden.id }}</th>
+                            <td>{{ orden.origen }}</td>
+                            <td>{{ orden.destino }}</td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="3">No hay órdenes registradas.</td>  <!-- ✅ Mensaje si la tabla está vacía -->
+                            <td colspan="3">No hay órdenes registradas.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -120,9 +120,28 @@
 
 
         <h2>Entradas</h2>
-        In:
+        <div class="info-contenedor">
+            {% for semaforo in semaforos[:3] %}
+                <p class="punto">
+                    <span class="etiqueta">in {{ loop.index0 }}:</span>
+                    <img src="{{ url_for('static', filename='punto-verde.png') if semaforo.color == 1 else url_for('static', filename='punto-rojo.png') }}">
+                </p>
+            {% endfor %}
+        </div>
+
+
         
         <h2>Salidas</h2>
+        <div class="info-contenedor">
+            {% for i in range(4) %}
+                <p class="punto">
+                    <span class="etiqueta">OUT {{ i }}:</span>
+                    <img src="{{ url_for('static', filename='punto-verde.png') }}">
+                </p>
+            {% endfor %}
+        </div>
+
+        
     </div>
 
     {% include "footer.html" %}
