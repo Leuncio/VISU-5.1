@@ -1,13 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Base */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0D0D0D;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
+/* Layout */
 .layout-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 20px;
-    flex-wrap: wrap; /* Empilha no mobile */
+    flex-wrap: wrap;
     max-width: 1200px;
     margin: 0 auto;
 }
 
+/* Mapa y Órdenes */
 .map-container,
 .ordenes-container {
     flex: 1 1 48%;
@@ -22,36 +35,46 @@
     }
 }
 
-/* Mapa */
-.map-container {
+.map-container,
+.ordenes-container {
     width: 100%;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0 auto 30px auto;
 }
 
-.titulo-mapa {
-    text-align: center;
+/* Títulos */
+.titulo-mapa,
+.titulo-ordenes,
+.titulo-acciones,
+.titulo-avgs,
+.titulo-seccion {
     font-size: 24px;
-    margin-bottom: 10px;
+    font-weight: 600;
+    color: #6A0DAD;
+    border-bottom: 2px solid #1CC9C5;
+    padding-bottom: 4px;
+    margin-bottom: 16px;
+    text-align: center;
 }
 
+/* Mapa */
 .map {
     position: relative;
     width: 100%;
-    aspect-ratio: 979 / 599; /* Mantém a proporção da imagem */
+    aspect-ratio: 979 / 599;
 }
 
 .map img:first-child {
     width: 100%;
-    height: auto; /* Permite que la altura sea proporcional a la anchura */
+    height: auto;
     object-fit: contain;
     display: block;
 }
 
+/* Elementos flotantes */
 .semaforo {
     position: absolute;
     width: 10px;
-    height: auto;
     transform: translate(-50%, -50%);
     pointer-events: none;
 }
@@ -59,44 +82,40 @@
 .avg {
     position: absolute;
     width: 30px;
-    height: auto;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    transition: transform 0.2s ease-in-out; /* Para que la rotación sea suave */
+    transition: transform 0.2s ease-in-out;
 }
 
-/* Ordenes */
-.ordenes-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
+/* Tabla */
+.table {
+    border-color: #1CC9C5;
+    background-color: #1A1A1A;
+    color: #FFFFFF;
 }
 
-.titulo-ordenes {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 10px;
+.table thead th {
+    background-color: #6A0DAD;
+    color: #fff;
+    border-color: #6A0DAD;
+}
+
+.table tbody tr:hover {
+    background-color: #222222;
 }
 
 /* Acciones */
 .acciones-wrapper {
     display: flex;
-    flex-direction: column; /* Mantiene el título "Acciones" arriba */
+    flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 20px;
-}
-
-.titulo-acciones {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
+    margin-top: 40px;
 }
 
 .acciones-content {
     display: flex;
-    justify-content: space-between; /* Mantiene AVGs a la izquierda y botones a la derecha */
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
@@ -105,63 +124,46 @@
 .avgs-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra el título "AVGs" en relación al contador */
-    justify-content: center; /* Asegura el centrado vertical */
-    flex: 1; /* Permite que ocupe espacio proporcional */
+    align-items: center;
+    justify-content: center;
+    flex: 1;
     gap: 10px;
-}
-
-.titulo-avgs {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center; /* Centra el título */
 }
 
 .contador-botones {
     display: flex;
     align-items: center;
     gap: 10px;
-    justify-content: center; /* Centra el contador debajo del título "AVGs" */
-}
-
-/* Botones */
-.botones-acciones {
-    display: flex;
-    flex-direction: column; /* Organiza las filas una debajo de la otra */
-    gap: 10px;
     justify-content: center;
-    align-items: center;
 }
 
-.fila {
-    display: flex;
-    gap: 10px;
-    justify-content: center; /* Asegura que los botones estén en línea horizontal */
+#botaoMas {
+    background-color: #6A0DAD; /* Morado */
 }
 
-.boton-accion {
-    width: 100px; /* Tamaño uniforme */
-    height: 40px;
-    padding: 5px;
-    font-size: 16px;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    text-align: center;
+#botaoMenos {
+    background-color: #1CC9C5; /* Turquesa */
 }
 
-.boton-accion:hover {
-    background-color: #0056b3;
-}
-
-/* Contador */
-.contador-botones button {
+#botaoMas,
+#botaoMenos {
     padding: 5px 10px;
     font-size: 20px;
     border-radius: 5px;
     cursor: pointer;
+    border: none;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+#botaoMas:hover {
+    background-color: #9143da;
+    color: #fff;
+}
+
+#botaoMenos:hover {
+    background-color: #36e0dc;
+    color: #000;
 }
 
 #contador {
@@ -171,9 +173,35 @@
     text-align: center;
 }
 
+/* Botones */
+.botones-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
 
-/* info */
+.boton-accion {
+    width: 100px;
+    height: 40px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #6A0DAD;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
 
+.boton-accion:hover {
+    background-color: #1CC9C5;
+    color: #000;
+}
+
+/* Estado: Grid de Comunicaciones */
 .estado-grid {
     display: flex;
     justify-content: space-between;
@@ -181,35 +209,35 @@
     flex-wrap: wrap;
     gap: 30px;
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 60px auto 40px auto;
 }
 
+/* Columna del sistema */
 .estado-col {
-    flex: 1 1 30%;
-    min-width: 250px;
+    flex: 1 1 calc(100% / 5 - 20px);
+    min-width: 160px;
+    background-color: #1A1A1A;
+    border: 1px solid #333333;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 12px rgba(106, 13, 173, 0.08);
 }
 
-.titulo-seccion {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
+/* Lista de ítems de estado */
 .info-contenedor {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding-left: 4px;
+    gap: 8px;
+    align-items: flex-start;
 }
 
 .punto {
     margin: 0;
-    font-size: 16px;
+    font-size: 15px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    justify-content: flex-start;
+    gap: 6px;
+    color: #FFFFFF;
 }
 
 .punto img {
@@ -219,17 +247,23 @@
     vertical-align: middle;
 }
 
+/* Mensajes del sistema */
 .estado-mensajes {
     width: 100%;
     max-width: 800px;
-    margin: 60px auto 40px auto;  /* más separado y centrado */
-    padding: 10px 20px;
+    margin: 60px auto 40px auto;
+    padding: 20px;
+    background-color: #1A1A1A;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(28, 201, 197, 0.08);
 }
 
 .estado-mensajes .punto {
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 16px;
     display: flex;
     align-items: center;
     gap: 6px;
+    color: #FFFFFF;
 }
