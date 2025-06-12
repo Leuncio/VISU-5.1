@@ -42,18 +42,16 @@ body {
     margin: 0 auto 30px auto;
 }
 
-/* Títulos */
+/* Títulos generales */
 .titulo-mapa,
 .titulo-ordenes,
 .titulo-acciones,
 .titulo-avgs,
 .titulo-seccion {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
     color: #6A0DAD;
-    border-bottom: 2px solid #1CC9C5;
-    padding-bottom: 4px;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -71,19 +69,19 @@ body {
     display: block;
 }
 
-/* Elementos flotantes */
-.semaforo {
+.semaforo,
+.avg {
     position: absolute;
-    width: 10px;
     transform: translate(-50%, -50%);
     pointer-events: none;
 }
 
+.semaforo {
+    width: 10px;
+}
+
 .avg {
-    position: absolute;
     width: 30px;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
     transition: transform 0.2s ease-in-out;
 }
 
@@ -120,7 +118,6 @@ body {
     width: 100%;
 }
 
-/* AVGs */
 .avgs-container {
     display: flex;
     flex-direction: column;
@@ -138,11 +135,11 @@ body {
 }
 
 #botaoMas {
-    background-color: #6A0DAD; /* Morado */
+    background-color: #6A0DAD;
 }
 
 #botaoMenos {
-    background-color: #1CC9C5; /* Turquesa */
+    background-color: #1CC9C5;
 }
 
 #botaoMas,
@@ -173,7 +170,7 @@ body {
     text-align: center;
 }
 
-/* Botones */
+/* Botones de acción */
 .botones-acciones {
     display: flex;
     flex-direction: column;
@@ -218,17 +215,29 @@ body {
     min-width: 160px;
     background-color: #1A1A1A;
     border: 1px solid #333333;
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 12px;
+    padding: 28px 20px 20px 20px;
     box-shadow: 0 0 12px rgba(106, 13, 173, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+.estado-col .titulo-seccion {
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+    color: #6A0DAD;
 }
 
 /* Lista de ítems de estado */
 .info-contenedor {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     align-items: flex-start;
+    width: 100%;
 }
 
 .punto {
