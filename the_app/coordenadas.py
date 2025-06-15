@@ -3,14 +3,13 @@ from .converciones import obtener_elementos, dbs_para_listas
 
 def load_data():
     """Load database values inside Flask's context dynamically."""
-    with current_app.app_context():  # ✅ Ensures database queries run in a valid Flask context
+    with current_app.app_context():  # Ensures database queries run in a valid Flask context
         DB_NUMERO_SEMAFOROS, DB_COORDENADAS_SEMAFOROS_X, DB_COORDENADAS_SEMAFOROS_Y, DB_NUMERO_DE_AGVS, DB_COORDENADAS_AGVS_X, DB_COORDENADAS_AGVS_Y, DB_COORDENDAS_AGVS_A = dbs_para_listas()
 
     semaforos = obtener_elementos("semaforo", DB_COORDENADAS_SEMAFOROS_X, DB_COORDENADAS_SEMAFOROS_Y, [0] * DB_NUMERO_SEMAFOROS, DB_NUMERO_SEMAFOROS)
     agvs = obtener_elementos("agv", DB_COORDENADAS_AGVS_X, DB_COORDENADAS_AGVS_Y, DB_COORDENDAS_AGVS_A, DB_NUMERO_DE_AGVS)
 
-    return semaforos, agvs  # ✅ Return instead of defining global variables
-
+    return semaforos, agvs  # Return instead of defining global variables
 
 
 # Coordenadas manuales

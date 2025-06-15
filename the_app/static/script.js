@@ -68,10 +68,11 @@ const colorMappingSemaforos = {
 
 // Mapeo de imágenes para AGVs
 const colorMappingAvgs = {
-    "rojo": "/static/agv-rojo.png",
-    "azul": "/static/agv-azul.png",
-    default: "/static/agv-rojo.png"
+    "rojo": "/static/agv.svg",
+    "azul": "/static/agv.svg",
+    default: "/static/agv.svg"
 };
+
 
 
 
