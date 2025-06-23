@@ -118,7 +118,7 @@
                 <div class="info-contenedor">
                     <p class="punto">
                     {% for semaforo in semaforos[:3] %}
-                            <span>in {{ loop.index0 }}:</span>
+                            <span class="etiqueta">in {{ loop.index0 }}:</span>
                             <img src="{{ url_for('static', filename='punto-verde.png') if semaforo.color == 1 else url_for('static', filename='punto-rojo.png') }}">
                     {% endfor %}
                     </p>
@@ -129,12 +129,12 @@
             <div class="estado-col">
                 <h2 class="titulo-seccion">Salidas</h2>
                 <div class="info-contenedor">
+                    <p class="punto">
                     {% for i in range(4) %}
-                        <p class="punto">
                             <span class="etiqueta">OUT {{ i }}:</span>
                             <img src="{{ url_for('static', filename='punto-verde.png') }}">
-                        </p>
                     {% endfor %}
+                    </p>
                 </div>
             </div>
         </div>
