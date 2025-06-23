@@ -117,7 +117,7 @@
                 <h2 class="titulo-seccion">Entradas</h2>
                 <div class="info-contenedor">
                     <p class="punto">
-                    {% for semaforo in semaforos[:3] %}
+                    {% for semaforo in semaforos %}
                             <span class="etiqueta">in {{ loop.index0 }}:</span>
                             <img src="{{ url_for('static', filename='punto-verde.png') if semaforo.color == 1 else url_for('static', filename='punto-rojo.png') }}">
                     {% endfor %}
