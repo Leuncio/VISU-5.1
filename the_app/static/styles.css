@@ -150,8 +150,23 @@ body {
 }
 
 /* Botones de acción */
+/* Contenedor de las dos columnas de botones */
+.columnas-botones {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas de igual ancho */
+    gap: 10px;
+}
+
+/* Cada columna individual */
+.columna {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Botones - ajustados para el nuevo layout */
 .boton-accion {
-    width: 100px;
+    width: 100%; /* Ocupa todo el ancho de la columna */
     height: 40px;
     padding: 5px;
     font-size: 16px;
@@ -160,8 +175,12 @@ body {
     color: white;
     border: none;
     cursor: pointer;
-    text-align: center;
     transition: background-color 0.3s ease;
+}
+
+.boton-accion:hover {
+    background-color: #1CC9C5;
+    color: #000;
 }
 
 .boton-accion:hover {
