@@ -78,6 +78,13 @@ body {
     transition: transform 0.2s ease-in-out;
 }
 
+#botonRuta {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
 /* Tabla */
 .table {
     border-color: #1CC9C5;
@@ -270,3 +277,4 @@ body {
     gap: 6px;
     color: #FFFFFF;
 }
+
