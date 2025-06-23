@@ -22,7 +22,7 @@
                         alt="Semáforo"
                     >
                 {% else %}
-                    <p>No hay semáforos registrados en la DB.</p>  <!-- ✅ Mensaje si está vacío -->
+                    <p>No hay semáforos registrados en la DB.</p>  <!-- Mensaje si está vacío -->
                 {% endfor %}
 
                 <!-- AGVs dinámicos con Jinja -->
@@ -103,11 +103,12 @@
             <div class="estado-col">
                 <h2 class="titulo-seccion">Comunicaciones</h2>
                 <div class="info-contenedor">
-                    <p class="punto"><span class="etiqueta">PLC:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
-                    <p class="punto"><span class="etiqueta">AGV1:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
-                    <p class="punto"><span class="etiqueta">AGV2:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
-                    <p class="punto"><span class="etiqueta">AGV3:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
-                    <p class="punto"><span class="etiqueta">PLC4:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}"></p>
+                    <p   class="punto"><span class="etiqueta">PLC:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
+                        <span class="etiqueta">AGV1:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
+                        <span class="etiqueta">AGV2:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
+                        <span class="etiqueta">AGV3:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
+                        <span class="etiqueta">PLC4:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
+                    </p>
                 </div>
             </div>
 
