@@ -210,36 +210,7 @@ body {
     margin: 60px auto 40px auto;
 }
 
-/* Columna del sistema */
-.estado-col {
-    flex: 1 1 calc(100% / 5 - 20px);
-    min-width: 160px;
-    background-color: #1A1A1A;
-    border: 1px solid #333333;
-    border-radius: 12px;
-    padding: 28px 20px 20px 20px;
-    box-shadow: 0 0 12px rgba(106, 13, 173, 0.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-}
 
-.estado-col .titulo-seccion {
-    margin: 0;
-    font-size: 18px;
-    text-align: center;
-    color: #6A0DAD;
-}
-
-/* Lista de ítems de estado */
-.info-contenedor {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
-    width: 100%;
-}
 
 .punto {
     margin: 0;
@@ -256,25 +227,3 @@ body {
     object-fit: contain;
     vertical-align: middle;
 }
-
-/* Mensajes del sistema */
-.estado-mensajes {
-    width: 100%;
-    max-width: 800px;
-    margin: 60px auto 40px auto;
-    padding: 20px;
-    background-color: #1A1A1A;
-    border: 1px solid #333333;
-    border-radius: 8px;
-    box-shadow: 0 0 12px rgba(28, 201, 197, 0.08);
-}
-
-.estado-mensajes .punto {
-    margin-top: 10px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: #FFFFFF;
-}
-
