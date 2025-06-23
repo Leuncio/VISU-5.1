@@ -43,7 +43,7 @@ body {
 .titulo-seccion {
     font-size: 22px;
     font-weight: 600;
-    color: #6A0DAD;
+    color: #fff;
     margin-bottom: 10px;
     text-align: center;
 }
@@ -208,8 +208,6 @@ body {
     gap: 30px;
     max-width: 1200px;                                  
 }
-
-
 
 .punto {
     margin: 0;
