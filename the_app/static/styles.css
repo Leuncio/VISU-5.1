@@ -20,27 +20,20 @@ body {
     margin: 0 auto;
 }
 
-/* Mapa y Órdenes */
-.map-container,
-.ordenes-container {
-    flex: 1 1 48%;
-    max-width: 48%;
+.map-container {
+    flex: 1 1 50%;  /* Cambiado a 50% del espacio disponible */
+    max-width: 50%;  /* Asegura que no crezca más de la mitad */
 }
 
-@media (max-width: 768px) {
-    .map-container,
-    .ordenes-container {
-        flex: 1 1 100%;
-        max-width: 100%;
-    }
+.ordenes-container {
+    flex: 1 1 35%;  /* Cambiado a 50% del espacio disponible */
+    max-width: 35%;  /* Asegura que no crezca más de la mitad */
+}
+.avgs-container {
+    flex: 1 1 15%;   /* Reducido a 25% cada uno */
+    max-width: 15%;
 }
 
-.map-container,
-.ordenes-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto 30px auto;
-}
 
 /* Títulos generales */
 .titulo-mapa,
@@ -103,20 +96,6 @@ body {
 }
 
 /* Acciones */
-.acciones-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-top: 40px;
-}
-
-.acciones-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
 
 .avgs-container {
     display: flex;
@@ -171,14 +150,6 @@ body {
 }
 
 /* Botones de acción */
-.botones-acciones {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-}
-
 .boton-accion {
     width: 100px;
     height: 40px;
