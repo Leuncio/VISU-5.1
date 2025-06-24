@@ -10,7 +10,7 @@ main_bp = Blueprint('main', __name__, template_folder='templates')
 
 @main_bp.route('/', methods=['GET', 'POST'])
 def home():
-    with current_app.app_context():  # ✅ Asegurar contexto de Flask
+    with current_app.app_context():  # Asegurar contexto de Flask
         ordenes = DatabaseOrdenes.query.all()  # 🔹 Obtener órdenes desde la DB
 
     semaforos, agvs = load_data()  
