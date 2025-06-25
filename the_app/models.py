@@ -14,7 +14,7 @@ ENTRY_OUTPUTS = 3
 ENTRY_MENSAJES = "Mensaje de ejemplo"
 ENTRY_BOTONES_IN = 5
 
-ORDEN_ORIGEN = "Orogen A"
+ORDEN_ORIGEN = "Origen A"
 ORDEN_DESTINO = "Destino A"
 
 OUTGUI_NUM_BOTONES = 2
@@ -35,13 +35,21 @@ BaseSemaforos = declarative_base()
 BaseAGVs = declarative_base()
 
 # Engines
-engine_entry = create_engine("sqlite:///instance/entry_gui.db", echo=False)
-engine_ordenes = create_engine("sqlite:///instance/ordenes.db", echo=False)
-engine_out = create_engine("sqlite:///instance/out_gui.db", echo=False)
+engine_agvs = create_engine("sqlite:///instance/database_agvs.db", echo=False)
+engine_entry = create_engine("sqlite:///instance/database_entry_gui.db", echo=False)
+engine_ordenes = create_engine("sqlite:///instance/database_ordenes.db", echo=False)
+engine_out = create_engine("sqlite:///instance/database_out_gui.db", echo=False)
 engine_semaforos = create_engine("sqlite:///instance/semaforos.db", echo=False)
-engine_agvs = create_engine("sqlite:///instance/agvs.db", echo=False)
+
 
 # Models
+class AGV(BaseAGVs):
+    __tablename__ = "agvs"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    x: Mapped[float] = mapped_column(Float, nullable=False)
+    y: Mapped[float] = mapped_column(Float, nullable=False)
+
 class DatabaseEntryGUI(BaseEntryGUI):
     __tablename__ = "database_entry_gui"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -68,14 +76,11 @@ class DatabaseSemaforos(BaseSemaforos):
     X: Mapped[float] = mapped_column(Float, nullable=False)
     Y: Mapped[float] = mapped_column(Float, nullable=False)
 
-class AGV(BaseAGVs):
-    __tablename__ = "agvs"
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String, nullable=False)
-    x: Mapped[float] = mapped_column(Float, nullable=False)
-    y: Mapped[float] = mapped_column(Float, nullable=False)
 
 # Recreate tables
+BaseAGVs.metadata.drop_all(engine_agvs)
+BaseAGVs.metadata.create_all(engine_agvs)
+
 BaseEntryGUI.metadata.drop_all(engine_entry)
 BaseEntryGUI.metadata.create_all(engine_entry)
 
@@ -88,10 +93,16 @@ BaseOutGUI.metadata.create_all(engine_out)
 BaseSemaforos.metadata.drop_all(engine_semaforos)
 BaseSemaforos.metadata.create_all(engine_semaforos)
 
-BaseAGVs.metadata.drop_all(engine_agvs)
-BaseAGVs.metadata.create_all(engine_agvs)
-
 # Repopulate with fresh data
+with Session(engine_agvs) as session:
+    for i in range(NUM_AGVS):
+        session.add(AGV(
+            name=f"{AGV_DEFAULT_NAME}-{i+1}",
+            x=AGV_DEFAULT_X,
+            y=AGV_DEFAULT_Y
+        ))
+    session.commit()
+
 with Session(engine_entry) as session:
     session.add(DatabaseEntryGUI(
         Inputs=ENTRY_INPUTS,
@@ -122,11 +133,3 @@ with Session(engine_semaforos) as session:
     ))
     session.commit()
 
-with Session(engine_agvs) as session:
-    for i in range(NUM_AGVS):
-        session.add(AGV(
-            name=f"{AGV_DEFAULT_NAME}-{i+1}",
-            x=AGV_DEFAULT_X,
-            y=AGV_DEFAULT_Y
-        ))
-    session.commit()
