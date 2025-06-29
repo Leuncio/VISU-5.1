@@ -81,10 +81,26 @@ function actualizarOrdenes() {
         .catch(err => console.error("Erro ao buscar órdenes:", err));
 }
 
+function atualizarEntradas() {
+    fetch("/api/inputs")
+        .then(res => res.json())
+        .then(bits => {
+            bits.forEach((bit, index) => {
+                const img = document.querySelector(`.entrada-bit[data-entrada="${index}"]`);
+                if (img) {
+                    img.src = bit === 1
+                        ? "/static/punto-verde.png"
+                        : "/static/punto-rojo.png";
+                }
+            });
+        })
+        .catch(err => console.error("Erro ao atualizar entradas:", err));
+}
+
 const colorMappingSemaforos = {
-    0: "/static/ponto-rojo.png",
-    1: "/static/ponto-verde.png",
-    default: "/static/ponto-gris.png"
+    0: "/static/punto-rojo.png",
+    1: "/static/punto-verde.png",
+    default: "/static/punto-gris.png"
 };
 
 const colorMappingAgvs = {
@@ -92,9 +108,11 @@ const colorMappingAgvs = {
 };
 
 setInterval(actualizarOrdenes, 5000);
-setInterval(() => atualizarElementos("/api/ponto_semaforo", colorMappingSemaforos), 5000);
-setInterval(() => atualizarElementos("/api/ponto_avg", colorMappingAgvs, true), 5000);
+setInterval(() => atualizarElementos("/api/punto_semaforo", colorMappingSemaforos), 5000);
+setInterval(() => atualizarElementos("/api/punto_avg", colorMappingAgvs, true), 5000);
+setInterval(atualizarEntradas, 2000);
 
 actualizarOrdenes();
-atualizarElementos("/api/ponto_semaforo", colorMappingSemaforos);
-atualizarElementos("/api/ponto_avg", colorMappingAgvs, true);
+atualizarElementos("/api/punto_semaforo", colorMappingSemaforos);
+atualizarElementos("/api/punto_avg", colorMappingAgvs, true);
+atualizarEntradas();

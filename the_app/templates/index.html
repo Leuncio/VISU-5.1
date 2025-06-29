@@ -108,17 +108,22 @@
             <div class="estado-col">
                 <h2 class="titulo-seccion">Entradas</h2>
                 <div class="info-contenedor">
-                    <p class="punto">
+                    <p class="ponto">
                         {% for bit in entradas_bits %}
                             <span class="etiqueta">in {{ loop.index0 }}:</span>
-                            <img src="{{
-                                url_for('static', filename='punto-verde.png') if bit else
-                                url_for('static', filename='punto-rojo.png')
-                            }}">
+                            <img
+                                class="entrada-bit"
+                                data-entrada="{{ loop.index0 }}"
+                                src="{{
+                                    url_for('static', filename='punto-verde.png') if bit else
+                                    url_for('static', filename='punto-rojo.png')
+                                }}"
+                            >
                         {% endfor %}
                     </p>
                 </div>
             </div>
+
 
             <!-- Salidas -->
             <div class="estado-col">

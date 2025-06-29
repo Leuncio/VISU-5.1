@@ -224,3 +224,11 @@ body {
     object-fit: contain;
     vertical-align: middle;
 }
+
+
+.entrada-bit {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    vertical-align: middle;
+}

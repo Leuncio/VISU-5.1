@@ -1,11 +1,15 @@
 # py_to_js.py
 
-from .converciones import dbs_para_dict, obtener_elementos
+from .converciones import (
+    dbs_para_dict,
+    obtener_elementos,
+    obter_bits_entrada
+)
 from flask import Blueprint, jsonify
 
 js_bp = Blueprint('js', __name__)
 
-@js_bp.route('/punto_semaforo')
+@js_bp.route('/ponto_semaforo')
 def get_semaforo():
     db = dbs_para_dict()
     semaforos = db.get("database_semaforos", [])
@@ -15,7 +19,7 @@ def get_semaforo():
     elementos = obtener_elementos("semaforo", x, y, angulo=[0]*n, num_elementos=n)
     return jsonify(elementos)
 
-@js_bp.route('/punto_avg')
+@js_bp.route('/ponto_avg')
 def get_avg():
     db = dbs_para_dict()
     entry = db.get("database_entry_gui", [{}])[0]
@@ -41,6 +45,9 @@ def get_salida_out():
     salida = dbs_para_dict().get("database_out_gui", [])
     return jsonify(salida)
 
-
-
-
+@js_bp.route('/inputs')
+def get_inputs():
+    db = dbs_para_dict()
+    entry = db.get("database_entry_gui", [{}])[0]
+    bits = obter_bits_entrada(entry, chave="Inputs", num_bits=13)
+    return jsonify(bits)
