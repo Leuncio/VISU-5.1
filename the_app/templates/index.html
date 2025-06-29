@@ -22,7 +22,7 @@
                         alt="Semáforo"
                     >
                 {% else %}
-                    <p>No hay semáforos registrados en la DB.</p>  <!-- Mensaje si está vacío -->
+                    <p>No hay semáforos registrados en la DB.</p>
                 {% endfor %}
 
                 <!-- AGVs dinámicos con Jinja -->
@@ -40,7 +40,6 @@
                 <div style="text-align: center; margin-top: 10px;">
                     <button type="button" id="botonRuta" class="btn btn-info">Ruta</button>
                 </div>
-                
             </div>
         </div>
 
@@ -76,38 +75,29 @@
             <h2 class="titulo-agvs">AGVs</h2>
             <div class="contador-botones">
                 <button id="botaoMenos" class="btn btn-danger">−</button>
-                <span id="contador">0</span>
+                <span id="contador">{{ salidas.numero_agvs }}</span>
                 <button id="botaoMas" class="btn btn-success">+</button>
             </div>
-            
-            <!-- Contenedor principal modificado -->
+
+            <!-- Botones generados dinámicamente -->
             <div class="botones-acciones">
-                <!-- Elimina los divs columna y deja los botones sueltos -->
-                <button class="boton-accion">Botón 1</button>
-                <button class="boton-accion">Botón 2</button>
-                <button class="boton-accion">Botón 3</button>
-                <button class="boton-accion">Botón 4</button>
-                <button class="boton-accion">Botón 5</button>
-                <button class="boton-accion">Botón 6</button>
-                <button class="boton-accion">Botón 7</button>
-                <button class="boton-accion">Botón 8</button>
-                <button class="boton-accion">Botón 9</button>
-                <button class="boton-accion">Botón 10</button>
+                {% for i in range(entradas.Botones_in) %}
+                    <button class="boton-accion">Botón {{ i + 1 }}</button>
+                {% endfor %}
             </div>
         </div>
-  
-        <!-- Info -->
 
+        <!-- Info -->
         <div class="estado-grid">
             <!-- Comunicaciones -->
             <div class="estado-col">
                 <h2 class="titulo-seccion">Comunicaciones</h2>
                 <div class="info-contenedor">
-                    <p   class="punto"><span class="etiqueta">PLC:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
+                    <p class="punto">
+                        <span class="etiqueta">PLC:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
                         <span class="etiqueta">AGV1:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
                         <span class="etiqueta">AGV2:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
                         <span class="etiqueta">AGV3:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
-                        <span class="etiqueta">PLC4:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
                     </p>
                 </div>
             </div>
@@ -117,10 +107,10 @@
                 <h2 class="titulo-seccion">Entradas</h2>
                 <div class="info-contenedor">
                     <p class="punto">
-                    {% for semaforo in semaforos %}
+                        {% for semaforo in semaforos %}
                             <span class="etiqueta">in {{ loop.index0 }}:</span>
-                            <img src="{{ url_for('static', filename='punto-verde.png') if semaforo.color == 1 else url_for('static', filename='punto-rojo.png') }}">
-                    {% endfor %}
+                            <img src="{{ url_for('static', filename='punto-gris.png') }}">
+                        {% endfor %}
                     </p>
                 </div>
             </div>
@@ -130,19 +120,19 @@
                 <h2 class="titulo-seccion">Salidas</h2>
                 <div class="info-contenedor">
                     <p class="punto">
-                    {% for i in range(4) %}
+                        {% for i in range(salidas.out_botones) %}
                             <span class="etiqueta">OUT {{ i }}:</span>
                             <img src="{{ url_for('static', filename='punto-verde.png') }}">
-                    {% endfor %}
+                        {% endfor %}
                     </p>
                 </div>
             </div>
+
             <div class="estado-mensajes">
                 <h2 class="titulo-seccion">Mensajes del sistema</h2>
-                <p class="punto">Sin Mensajes</p>
+                <p class="punto">{{ entradas.Mensajes }}</p>
             </div>
         </div>
-        
     </div>
 
     {% include "footer.html" %}

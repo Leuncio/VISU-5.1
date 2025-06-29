@@ -1,34 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Elementos principales
     const botonRuta = document.getElementById("botonRuta");
     const mapa = document.getElementById("mapa-img");
     const botaoMas = document.getElementById("botaoMas");
     const botaoMenos = document.getElementById("botaoMenos");
     const contador = document.getElementById("contador");
 
-    // Verificación de elementos en el DOM
     if (!botonRuta || !mapa || !botaoMas || !botaoMenos || !contador) {
-        console.error("Elemento no encontrado: Verifica que 'botonRuta', 'mapa-img', 'botaoMas', 'botaoMenos' y 'contador' existen en el HTML.");
+        console.error("Elemento não encontrado: Verifique os IDs no HTML.");
         return;
     }
 
     let mostrandoRuta = false;
-    let valorContador = 0;
+    let valorContador = parseInt(contador.textContent) || 0;
 
-    // Evento para cambiar la imagen del mapa
     botonRuta.addEventListener("click", function () {
         mostrandoRuta = !mostrandoRuta;
-        console.log(`Botón presionado! Cambiando imagen a: ${mostrandoRuta ? "mapa-ruta.png" : "mapa.png"}`);
         mapa.src = mostrandoRuta ? "/static/mapa-ruta.png" : "/static/mapa.png";
     });
 
-    // Evento para aumentar el contador de AGVs
     botaoMas.addEventListener("click", function () {
         valorContador++;
         contador.textContent = valorContador;
     });
 
-    // Evento para disminuir el contador de AGVs (no permite valores negativos)
     botaoMenos.addEventListener("click", function () {
         if (valorContador > 0) {
             valorContador--;
@@ -37,84 +31,73 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Función para actualizar semáforos y AGVs
-function atualizarElementos(url, colorMapping, includeRotation = false) {
+// Atualizar elementos visuais (semáforos / AGVs)
+function atualizarElementos(url, colorMapping = {}, includeRotation = false) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            data.forEach(elementoInfo => {
-                const elemento = document.getElementById(elementoInfo.id);
-                if (elemento) {
-                    elemento.style.left = elementoInfo.left;
-                    elemento.style.top = elementoInfo.top;
-                    elemento.src = colorMapping[elementoInfo.color] || colorMapping["default"];
+            data.forEach(info => {
+                const el = document.getElementById(info.id);
+                if (!el) return;
 
-                    // Aplicar rotación si es un AGV
-                    if (includeRotation && elementoInfo.angulo !== undefined) {
-                        elemento.style.transform = `translate(-50%, -50%) rotate(${elementoInfo.angulo}deg)`;
-                    }
+                el.style.left = info.left;
+                el.style.top = info.top;
+
+                if (colorMapping && info.color !== undefined) {
+                    el.src = colorMapping[info.color] || colorMapping.default;
+                }
+
+                if (includeRotation && info.angulo !== undefined) {
+                    el.style.transform = `translate(-50%, -50%) rotate(${info.angulo}deg)`;
                 }
             });
         })
-        .catch(error => console.error("Error al actualizar elementos:", error));
+        .catch(err => console.error("Erro ao atualizar:", err));
 }
 
-// Mapeo de imágenes para semáforos
+// Atualizar ordens na tabela
+function actualizarOrdenes() {
+    fetch("/api/ordenes")
+        .then(res => res.json())
+        .then(ordenes => {
+            const tbody = document.getElementById("ordenes-container");
+            tbody.innerHTML = "";
+
+            if (ordenes.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3">No hay órdenes registradas.</td></tr>`;
+                return;
+            }
+
+            ordenes.forEach(o => {
+                tbody.innerHTML += `
+                    <tr>
+                        <th scope="row">${o.id}</th>
+                        <td>${o.origen}</td>
+                        <td>${o.destino}</td>
+                    </tr>
+                `;
+            });
+        })
+        .catch(err => console.error("Erro ao buscar órdenes:", err));
+}
+
+// Mapeamento de ícones (cores / estados)
 const colorMappingSemaforos = {
     0: "/static/punto-rojo.png",
     1: "/static/punto-verde.png",
     default: "/static/punto-gris.png"
 };
 
-// Mapeo de imágenes para AGVs
 const colorMappingAgvs = {
-    "rojo": "/static/agv.svg",
-    "azul": "/static/agv.svg",
     default: "/static/agv.svg"
 };
 
-
-
-
-function actualizarOrdenes() {
-    fetch("/api/ordenes")
-        .then(response => response.json())
-        .then(ordenes => {
-            const tablaOrdenes = document.getElementById("ordenes-container");
-            tablaOrdenes.innerHTML = ""; // Limpiar tabla antes de actualizar
-
-            ordenes.forEach(orden => {
-                const fila = document.createElement("tr");
-                fila.innerHTML = `
-                    <th scope="row">${orden.id}</th>
-                    <td>${orden.origen}</td>
-                    <td>${orden.destino}</td>
-                `;
-                tablaOrdenes.appendChild(fila);  // Añadir nueva fila con datos actualizados
-            });
-
-            if (ordenes.length === 0) {
-                tablaOrdenes.innerHTML = `<tr><td colspan="3">No hay órdenes registradas.</td></tr>`; // ✅ Mensaje si está vacío
-            }
-        })
-        .catch(error => console.error("Error al actualizar órdenes:", error));
-}
-
-// 🚀 Actualización automática cada 5 segundos
+// Atualizações automáticas
 setInterval(actualizarOrdenes, 5000);
-
-// 🚀 Llamada inicial para cargar datos al abrir la página
-actualizarOrdenes();
-
-
-
-
-
-
-// Actualización automática cada 5 segundos
 setInterval(() => atualizarElementos("/api/punto_semaforo", colorMappingSemaforos), 5000);
 setInterval(() => atualizarElementos("/api/punto_avg", colorMappingAgvs, true), 5000);
 
-// Llamada inicial para actualizar elementos
+// Disparo inicial
+actualizarOrdenes();
 atualizarElementos("/api/punto_semaforo", colorMappingSemaforos);
 atualizarElementos("/api/punto_avg", colorMappingAgvs, true);

@@ -1,18 +1,28 @@
-# views
+# views.py
 
 from flask import Blueprint, render_template
-from .coordenadas import load_data
-from the_app.models import DatabaseOrdenes
-from flask import current_app
+from .converciones import dbs_para_dict, obtener_agvs, obtener_semaforos
 
-# Crear el Blueprint
+# Criar o Blueprint principal
 main_bp = Blueprint('main', __name__, template_folder='templates')
 
 @main_bp.route('/', methods=['GET', 'POST'])
 def home():
-    with current_app.app_context():  # Asegurar contexto de Flask
-        ordenes = DatabaseOrdenes.query.all()  # 🔹 Obtener órdenes desde la DB
+    db = dbs_para_dict()
 
-    semaforos, agvs = load_data()  
+    ordenes = db.get("database_ordenes", [])
+    entry_data = db.get("database_entry_gui", [{}])[0]
+    out_data = db.get("database_out_gui", [{}])[0]
+    semaforos_data = db.get("database_semaforos", [])
 
-    return render_template('index.html', semaforos=semaforos, agvs=agvs, ordenes=ordenes)
+    agvs = obtener_agvs(entry_data)
+    semaforos = obtener_semaforos(semaforos_data)
+
+    return render_template(
+        'index.html',
+        ordenes=ordenes,
+        agvs=agvs,
+        semaforos=semaforos,
+        entradas=entry_data,
+        salidas=out_data
+    )

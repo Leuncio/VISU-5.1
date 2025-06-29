@@ -140,7 +140,4 @@ def dbs_para_dict():
         for item in resultados[key]:
             item.pop('_sa_instance_state', None)
 
-    print(resultados)
     return resultados
-
-dbs_para_dict()

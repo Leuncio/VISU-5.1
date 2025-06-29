@@ -1,7 +1,11 @@
 # converciones.py
 
 from flask import current_app
-from the_app.models import db, DatabaseSemaforos, DatabaseEntryGUI
+from .models import (
+    engine_entry, engine_ordenes, engine_out, engine_semaforos,
+    DatabaseEntryGUI, DatabaseOrdenes, DatabaseOutGUI, DatabaseSemaforos
+)
+from sqlalchemy.orm import Session
 
 # Escala: 1 pixel = 0.05 metros
 ESCALA_METROS_POR_PIXEL = 0.05
@@ -27,13 +31,31 @@ def metros_a_css_porcentaje(x, y):
     }
 
 
-def numero_para_lista_binaria(num_elementos):
-    """
-    Genera una lista binaria con la misma cantidad de bits que el número de elementos.
-    """
-    binario = bin(num_elementos)[2:].zfill(num_elementos)  # Convierte el número total de semáforos en binario
-    return [int(bit) for bit in binario[-num_elementos:]]  # Usa solo los bits necesarios
+def dbs_para_dict():
+    resultados = {}
 
+    with Session(engine_entry) as session:
+        entry_rows = session.query(DatabaseEntryGUI).all()
+        resultados['database_entry_gui'] = [row.__dict__.copy() for row in entry_rows]
+
+    with Session(engine_ordenes) as session:
+        ordenes_rows = session.query(DatabaseOrdenes).all()
+        resultados['database_ordenes'] = [row.__dict__.copy() for row in ordenes_rows]
+
+    with Session(engine_out) as session:
+        out_rows = session.query(DatabaseOutGUI).all()
+        resultados['database_out_gui'] = [row.__dict__.copy() for row in out_rows]
+
+    with Session(engine_semaforos) as session:
+        semaforos_rows = session.query(DatabaseSemaforos).all()
+        resultados['database_semaforos'] = [row.__dict__.copy() for row in semaforos_rows]
+
+    # Remover chaves técnicas como '_sa_instance_state'
+    for key in resultados:
+        for item in resultados[key]:
+            item.pop('_sa_instance_state', None)
+
+    return resultados
 
 def obtener_elementos(tipo, x, y, angulo, num_elementos):
     """
@@ -44,11 +66,10 @@ def obtener_elementos(tipo, x, y, angulo, num_elementos):
     binario = numero_para_lista_binaria(num_elementos)
 
     for i in range(num_elementos):
-        elemento = metros_a_css_porcentaje(x[i], y[i])  # Conversión a CSS
-        elemento["color"] = binario[i]  # Asigna color aleatorio
+        elemento = metros_a_css_porcentaje(x[i], y[i])
         elemento["id"] = f"{tipo}-{i}"
 
-        # Si el elemento es un AGV, agregar el ángulo definido
+        # Si es AGV, incluye ángulo
         if tipo == "agv":
             elemento["angulo"] = angulo[i]
 
@@ -57,5 +78,32 @@ def obtener_elementos(tipo, x, y, angulo, num_elementos):
     return elementos
 
 
-def dbs_para_listas():
-    
+def obtener_agvs(entry_data):
+    """
+    Procesa los datos de DatabaseEntryGUI para obtener los AGVs en formato CSS.
+    """
+    agvs_idx = [i for i in range(1, 100) if f"X_AGV{i}" in entry_data]
+    x = [entry_data[f"X_AGV{i}"] for i in agvs_idx]
+    y = [entry_data[f"Y_AGV{i}"] for i in agvs_idx]
+    a = [entry_data[f"A_AGV{i}"] for i in agvs_idx]
+
+    return obtener_elementos("agv", x, y, angulo=a, num_elementos=len(agvs_idx))
+
+
+def obtener_semaforos(semaforos_data):
+    """
+    Procesa los datos de DatabaseSemaforos para obtener semáforos en formato CSS.
+    """
+    x = [s["X"] for s in semaforos_data]
+    y = [s["Y"] for s in semaforos_data]
+    num = len(semaforos_data)
+
+    return obtener_elementos("semaforo", x, y, angulo=[0]*num, num_elementos=num)
+
+
+def numero_para_lista_binaria(num_elementos):
+    """
+    Genera una lista binaria con la misma cantidad de bits que el número de elementos.
+    """
+    binario = bin(num_elementos)[2:].zfill(num_elementos)  # Convierte el número total de semáforos en binario
+    return [int(bit) for bit in binario[-num_elementos:]]  # Usa solo los bits necesarios
