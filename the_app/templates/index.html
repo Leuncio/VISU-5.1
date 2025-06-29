@@ -26,12 +26,12 @@
                 {% endfor %}
 
                 <!-- AGVs dinámicos con Jinja -->
-                {% for avg in agvs %}
+                {% for agv in agvs %}
                     <img 
-                        id="{{ avg.id }}" 
-                        class="avg pos-avg" 
-                        src="{{ url_for('static', filename='avg-rojo.png') }}" 
-                        style="left: {{ avg.left }}; top: {{ avg.top }};" 
+                        id="{{ agv.id }}" 
+                        class="agv pos-agv" 
+                        src="{{ url_for('static', filename='agv.svg') }}" 
+                        style="left: {{ agv.left }}; top: {{ agv.top }};" 
                         alt="AGV"
                     >
                 {% endfor %}
