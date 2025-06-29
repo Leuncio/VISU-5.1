@@ -30,7 +30,6 @@ def metros_a_css_porcentaje(x, y):
         "top": f"{top_pct:.2f}%"
     }
 
-
 def dbs_para_dict():
     resultados = {}
 
@@ -63,7 +62,7 @@ def obtener_elementos(tipo, x, y, angulo, num_elementos):
     asignando un bit aleatorio a cada uno. Permite definir X, Y y el ángulo para AGVs.
     """
     elementos = []
-    binario = numero_para_lista_binaria(num_elementos)
+    binario = numero_para_bits(num_elementos)  # <- Correção aqui
 
     for i in range(num_elementos):
         elemento = metros_a_css_porcentaje(x[i], y[i])
@@ -77,7 +76,6 @@ def obtener_elementos(tipo, x, y, angulo, num_elementos):
 
     return elementos
 
-
 def obtener_agvs(entry_data):
     """
     Procesa los datos de DatabaseEntryGUI para obtener los AGVs en formato CSS.
@@ -89,7 +87,6 @@ def obtener_agvs(entry_data):
 
     return obtener_elementos("agv", x, y, angulo=a, num_elementos=len(agvs_idx))
 
-
 def obtener_semaforos(semaforos_data):
     """
     Procesa los datos de DatabaseSemaforos para obtener semáforos en formato CSS.
@@ -100,10 +97,26 @@ def obtener_semaforos(semaforos_data):
 
     return obtener_elementos("semaforo", x, y, angulo=[0]*num, num_elementos=num)
 
+def numero_para_bits(valor, num_bits=8):
+    """
+    Converte um inteiro em uma lista de bits (0 ou 1), com tamanho fixo.
+    """
+    binario = bin(valor)[2:].zfill(num_bits)
+    return [int(b) for b in binario[-num_bits:]]
 
-def numero_para_lista_binaria(num_elementos):
+def obter_bits_entrada(entry_data, chave="Inputs", num_bits=13):
     """
-    Genera una lista binaria con la misma cantidad de bits que el número de elementos.
+    Extrai bits do campo de entrada da base de dados.
     """
-    binario = bin(num_elementos)[2:].zfill(num_elementos)  # Convierte el número total de semáforos en binario
-    return [int(bit) for bit in binario[-num_elementos:]]  # Usa solo los bits necesarios
+    valor = entry_data.get(chave, 0)
+    return numero_para_bits(valor, num_bits)
+
+def obter_bits_semaforos(semaforos_data, chave="Estados", num_bits=14):
+    """
+    Converte um valor (ou soma de flags) de semáforos em lista de bits.
+    """
+    if not semaforos_data:
+        return [0] * num_bits
+
+    valor = semaforos_data[0].get(chave, 0)
+    return numero_para_bits(valor, num_bits)

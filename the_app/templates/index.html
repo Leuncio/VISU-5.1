@@ -12,7 +12,6 @@
             <div class="map">
                 <img id="mapa-img" src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
 
-                <!-- Semáforos dinámicos con Jinja -->
                 {% for semaforo in semaforos %}
                     <img 
                         id="{{ semaforo.id }}" 
@@ -25,7 +24,6 @@
                     <p>No hay semáforos registrados en la DB.</p>
                 {% endfor %}
 
-                <!-- AGVs dinámicos con Jinja -->
                 {% for agv in agvs %}
                     <img 
                         id="{{ agv.id }}" 
@@ -36,7 +34,6 @@
                     >
                 {% endfor %}
 
-                <!-- Botón de ruta -->
                 <div style="text-align: center; margin-top: 10px;">
                     <button type="button" id="botonRuta" class="btn btn-info">Ruta</button>
                 </div>
@@ -79,7 +76,6 @@
                 <button id="botaoMas" class="btn btn-success">+</button>
             </div>
 
-            <!-- 10 Botões fixos definidos manualmente -->
             <div class="botones-acciones">
                 <button class="boton-accion">Botón 1</button>
                 <button class="boton-accion">Botón 2</button>
@@ -96,7 +92,6 @@
 
         <!-- Info -->
         <div class="estado-grid">
-            <!-- Comunicaciones -->
             <div class="estado-col">
                 <h2 class="titulo-seccion">Comunicaciones</h2>
                 <div class="info-contenedor">
@@ -109,14 +104,17 @@
                 </div>
             </div>
 
-            <!-- Entradas -->
+            <!-- Entradas atualizadas com bits -->
             <div class="estado-col">
                 <h2 class="titulo-seccion">Entradas</h2>
                 <div class="info-contenedor">
                     <p class="punto">
-                        {% for semaforo in semaforos %}
+                        {% for bit in entradas_bits %}
                             <span class="etiqueta">in {{ loop.index0 }}:</span>
-                            <img src="{{ url_for('static', filename='punto-gris.png') }}">
+                            <img src="{{
+                                url_for('static', filename='punto-verde.png') if bit else
+                                url_for('static', filename='punto-rojo.png')
+                            }}">
                         {% endfor %}
                     </p>
                 </div>

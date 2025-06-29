@@ -11,11 +11,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     let mostrandoRuta = false;
-    let valorContador = parseInt(contador.textContent) || 0;
+    let valorContador = parseInt(contador.textContent.trim()) || 0;
 
     botonRuta.addEventListener("click", function () {
         mostrandoRuta = !mostrandoRuta;
-        mapa.src = mostrandoRuta ? "/static/mapa-ruta.png" : "/static/mapa.png";
+        mapa.src = mostrandoRuta
+            ? "/static/mapa-ruta.png"
+            : "/static/mapa.png";
     });
 
     botaoMas.addEventListener("click", function () {
@@ -31,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Atualizar elementos visuais (semáforos / AGVs)
 function atualizarElementos(url, colorMapping = {}, includeRotation = false) {
     fetch(url)
         .then(response => response.json())
@@ -52,10 +53,9 @@ function atualizarElementos(url, colorMapping = {}, includeRotation = false) {
                 }
             });
         })
-        .catch(err => console.error("Erro ao atualizar:", err));
+        .catch(err => console.error("Erro ao atualizar elementos:", err));
 }
 
-// Atualizar ordens na tabela
 function actualizarOrdenes() {
     fetch("/api/ordenes")
         .then(res => res.json())
@@ -81,23 +81,20 @@ function actualizarOrdenes() {
         .catch(err => console.error("Erro ao buscar órdenes:", err));
 }
 
-// Mapeamento de ícones (cores / estados)
 const colorMappingSemaforos = {
-    0: "/static/punto-rojo.png",
-    1: "/static/punto-verde.png",
-    default: "/static/punto-gris.png"
+    0: "/static/ponto-rojo.png",
+    1: "/static/ponto-verde.png",
+    default: "/static/ponto-gris.png"
 };
 
 const colorMappingAgvs = {
     default: "/static/agv.svg"
 };
 
-// Atualizações automáticas
 setInterval(actualizarOrdenes, 5000);
-setInterval(() => atualizarElementos("/api/punto_semaforo", colorMappingSemaforos), 5000);
-setInterval(() => atualizarElementos("/api/punto_avg", colorMappingAgvs, true), 5000);
+setInterval(() => atualizarElementos("/api/ponto_semaforo", colorMappingSemaforos), 5000);
+setInterval(() => atualizarElementos("/api/ponto_avg", colorMappingAgvs, true), 5000);
 
-// Disparo inicial
 actualizarOrdenes();
-atualizarElementos("/api/punto_semaforo", colorMappingSemaforos);
-atualizarElementos("/api/punto_avg", colorMappingAgvs, true);
+atualizarElementos("/api/ponto_semaforo", colorMappingSemaforos);
+atualizarElementos("/api/ponto_avg", colorMappingAgvs, true);
