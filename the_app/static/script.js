@@ -97,6 +97,29 @@ function atualizarEntradas() {
         .catch(err => console.error("Erro ao atualizar entradas:", err));
 }
 
+
+
+
+function atualizarSalidas() {
+    fetch("/api/outputs")  // ← correto agora
+        .then(res => res.json())
+        .then(bits => {
+            bits.forEach((bit, index) => {
+                const img = document.querySelector(`.salida-bit[data-salida="${index}"]`);
+                if (img) {
+                    img.src = bit === 1
+                        ? "/static/punto-verde.png"
+                        : "/static/punto-rojo.png";
+                }
+            });
+        })
+        .catch(err => console.error("Erro ao atualizar salidas:", err));
+}
+
+
+
+
+
 const colorMappingSemaforos = {
     0: "/static/punto-rojo.png",
     1: "/static/punto-verde.png",
@@ -111,8 +134,10 @@ setInterval(actualizarOrdenes, 5000);
 setInterval(() => atualizarElementos("/api/punto_semaforo", colorMappingSemaforos), 5000);
 setInterval(() => atualizarElementos("/api/punto_avg", colorMappingAgvs, true), 5000);
 setInterval(atualizarEntradas, 2000);
+setInterval(atualizarSalidas, 2000);
 
 actualizarOrdenes();
 atualizarElementos("/api/punto_semaforo", colorMappingSemaforos);
 atualizarElementos("/api/punto_avg", colorMappingAgvs, true);
 atualizarEntradas();
+atualizarSalidas();

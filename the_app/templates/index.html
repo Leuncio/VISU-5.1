@@ -130,14 +130,22 @@
                 <h2 class="titulo-seccion">Salidas</h2>
                 <div class="info-contenedor">
                     <p class="punto">
-                        {% for i in range(salidas.out_botones) %}
-                            <span class="etiqueta">OUT {{ i }}:</span>
-                            <img src="{{ url_for('static', filename='punto-verde.png') }}">
+                        {% for bit in salidas_bits %}
+                            <span class="etiqueta">OUT {{ loop.index0 }}:</span>
+                            <img
+                                class="salida-bit"
+                                data-salida="{{ loop.index0 }}"
+                                src="{{
+                                    url_for('static', filename='punto-verde.png') if bit else
+                                    url_for('static', filename='punto-rojo.png')
+                                }}"
+                            >
                         {% endfor %}
                     </p>
                 </div>
             </div>
 
+            <!-- mensajes -->
             <div class="estado-mensajes">
                 <h2 class="titulo-seccion">Mensajes del sistema</h2>
                 <p class="punto">{{ entradas.Mensajes }}</p>

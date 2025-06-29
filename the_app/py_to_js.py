@@ -1,11 +1,12 @@
 # py_to_js.py
 
+from flask import Blueprint, jsonify
+from .converciones import obtener_bits_entrada, obtener_bits_salida  # certifique-se de importar isso
 from .converciones import (
     dbs_para_dict,
     obtener_elementos,
-    obter_bits_entrada
 )
-from flask import Blueprint, jsonify
+
 
 js_bp = Blueprint('js', __name__)
 
@@ -35,19 +36,16 @@ def get_ordenes():
     ordenes = dbs_para_dict().get("database_ordenes", [])
     return jsonify(ordenes)
 
-@js_bp.route('/entrada_out')
-def get_entrada_out():
-    entrada = dbs_para_dict().get("database_entry_gui", [])
-    return jsonify(entrada)
-
-@js_bp.route('/salida_out')
-def get_salida_out():
-    salida = dbs_para_dict().get("database_out_gui", [])
-    return jsonify(salida)
-
 @js_bp.route('/inputs')
 def get_inputs():
     db = dbs_para_dict()
     entry = db.get("database_entry_gui", [{}])[0]
-    bits = obter_bits_entrada(entry, chave="Inputs", num_bits=13)
+    bits = obtener_bits_entrada(entry, llave="Inputs", num_bits=14)
+    return jsonify(bits)
+
+@js_bp.route('/outputs')
+def get_outputs():
+    db = dbs_para_dict()
+    entry = db.get("database_entry_gui", [{}])[0]
+    bits = obtener_bits_salida(entry, llave="Outputs", num_bits=4)
     return jsonify(bits)

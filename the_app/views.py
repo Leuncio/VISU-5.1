@@ -5,7 +5,8 @@ from .converciones import (
     dbs_para_dict,
     obtener_agvs,
     obtener_semaforos,
-    obter_bits_entrada
+    obtener_bits_entrada,
+    obtener_bits_salida,
 )
 
 # Criar o Blueprint principal
@@ -22,7 +23,8 @@ def home():
 
     agvs = obtener_agvs(entry_data)
     semaforos = obtener_semaforos(semaforos_data)
-    entradas_bits = obter_bits_entrada(entry_data, chave="Inputs", num_bits=13)
+    entradas_bits = obtener_bits_entrada(entry_data, llave="Inputs", num_bits=13)
+    salidas_bits = obtener_bits_salida(entry_data, llave="Outputs", num_bits=4)
 
     return render_template(
         'index.html',
@@ -31,5 +33,6 @@ def home():
         semaforos=semaforos,
         entradas=entry_data,
         salidas=out_data,
-        entradas_bits=entradas_bits
+        entradas_bits=entradas_bits,
+        salidas_bits=salidas_bits
     )
