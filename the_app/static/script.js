@@ -22,13 +22,13 @@ document.addEventListener("DOMContentLoaded", function () {
         mapa.src = mostrandoRuta ? "/static/mapa-ruta.png" : "/static/mapa.png";
     });
 
-    // Evento para aumentar el contador de AVGs
+    // Evento para aumentar el contador de AGVs
     botaoMas.addEventListener("click", function () {
         valorContador++;
         contador.textContent = valorContador;
     });
 
-    // Evento para disminuir el contador de AVGs (no permite valores negativos)
+    // Evento para disminuir el contador de AGVs (no permite valores negativos)
     botaoMenos.addEventListener("click", function () {
         if (valorContador > 0) {
             valorContador--;
@@ -67,7 +67,7 @@ const colorMappingSemaforos = {
 };
 
 // Mapeo de imágenes para AGVs
-const colorMappingAvgs = {
+const colorMappingAgvs = {
     "rojo": "/static/agv.svg",
     "azul": "/static/agv.svg",
     default: "/static/agv.svg"
@@ -113,8 +113,8 @@ actualizarOrdenes();
 
 // Actualización automática cada 5 segundos
 setInterval(() => atualizarElementos("/api/punto_semaforo", colorMappingSemaforos), 5000);
-setInterval(() => atualizarElementos("/api/punto_avg", colorMappingAvgs, true), 5000);
+setInterval(() => atualizarElementos("/api/punto_avg", colorMappingAgvs, true), 5000);
 
 // Llamada inicial para actualizar elementos
 atualizarElementos("/api/punto_semaforo", colorMappingSemaforos);
-atualizarElementos("/api/punto_avg", colorMappingAvgs, true);
+atualizarElementos("/api/punto_avg", colorMappingAgvs, true);
