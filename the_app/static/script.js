@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
 function atualizarElementos(url, colorMapping = {}, includeRotation = false) {
     fetch(url)
         .then(response => response.json())
@@ -55,6 +56,7 @@ function atualizarElementos(url, colorMapping = {}, includeRotation = false) {
         })
         .catch(err => console.error("Erro ao atualizar elementos:", err));
 }
+
 
 function actualizarOrdenes() {
     fetch("/api/ordenes")
@@ -81,6 +83,7 @@ function actualizarOrdenes() {
         .catch(err => console.error("Erro ao buscar órdenes:", err));
 }
 
+
 function atualizarEntradas() {
     fetch("/api/inputs")
         .then(res => res.json())
@@ -98,8 +101,6 @@ function atualizarEntradas() {
 }
 
 
-
-
 function atualizarSalidas() {
     fetch("/api/outputs")  // ← correto agora
         .then(res => res.json())
@@ -115,8 +116,6 @@ function atualizarSalidas() {
         })
         .catch(err => console.error("Erro ao atualizar salidas:", err));
 }
-
-
 
 
 
