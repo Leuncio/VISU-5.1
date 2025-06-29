@@ -110,3 +110,37 @@ with Session(engine_out) as session:
 with Session(engine_semaforos) as session:
     session.add(DatabaseSemaforos())
     session.commit()
+
+
+
+
+
+
+def dbs_para_dict():
+    resultados = {}
+
+    with Session(engine_entry) as session:
+        entry_rows = session.query(DatabaseEntryGUI).all()
+        resultados['database_entry_gui'] = [row.__dict__.copy() for row in entry_rows]
+
+    with Session(engine_ordenes) as session:
+        ordenes_rows = session.query(DatabaseOrdenes).all()
+        resultados['database_ordenes'] = [row.__dict__.copy() for row in ordenes_rows]
+
+    with Session(engine_out) as session:
+        out_rows = session.query(DatabaseOutGUI).all()
+        resultados['database_out_gui'] = [row.__dict__.copy() for row in out_rows]
+
+    with Session(engine_semaforos) as session:
+        semaforos_rows = session.query(DatabaseSemaforos).all()
+        resultados['database_semaforos'] = [row.__dict__.copy() for row in semaforos_rows]
+
+    # Remover chaves técnicas como '_sa_instance_state'
+    for key in resultados:
+        for item in resultados[key]:
+            item.pop('_sa_instance_state', None)
+
+    print(resultados)
+    return resultados
+
+dbs_para_dict()
