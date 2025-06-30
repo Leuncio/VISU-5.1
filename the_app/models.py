@@ -10,6 +10,7 @@ ENTRY_INPUTS = 2
 ENTRY_OUTPUTS = 3
 ENTRY_MENSAJES = "Mensaje de ejemplo"
 ENTRY_BOTONES_IN = 9
+SEMAFORO = 8
 NUM_AGVS = 7  # máximo 10 AGVs
 COM_DEFAULT = 1
 AGV_DEFAULT_COM = 1
@@ -54,6 +55,7 @@ attrs = {
     'Mensajes': Column(String, nullable=False, default=ENTRY_MENSAJES),
     'Botones_in': Column(Integer, nullable=False, default=ENTRY_BOTONES_IN),
     'COM': Column(Integer, nullable=False, default=COM_DEFAULT),
+    'Semaforo': Column(Integer, nullable=False, default=SEMAFORO),
 }
 for i in range(1, NUM_AGVS + 1):
     attrs[f'COM_AGV{i}'] = Column(Integer, nullable=False, default=AGV_DEFAULT_COM)
