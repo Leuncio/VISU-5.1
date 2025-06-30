@@ -28,9 +28,9 @@
                     <img 
                         id="{{ agv.id }}" 
                         class="agv pos-agv" 
-                        src="{{ url_for('static', filename='agv.svg') }}" 
+                        src="{{ url_for('static', filename='agv-' ~ loop.index ~ '.svg') }}" 
                         style="left: {{ agv.left }}; top: {{ agv.top }};" 
-                        alt="AGV"
+                        alt="AGV {{ loop.index }}"
                     >
                 {% endfor %}
 
