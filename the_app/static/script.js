@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-function atualizarElementos(url, colorMapping = {}, includeRotation = false) {
+function actualizarElementos(url, colorMapping = {}, includeRotation = false) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -54,8 +54,31 @@ function atualizarElementos(url, colorMapping = {}, includeRotation = false) {
                 }
             });
         })
-        .catch(err => console.error("Erro ao atualizar elementos:", err));
+        .catch(err => console.error("Erro ao actualizar elementos:", err));
 }
+
+
+function actualizarSemaforos(url) {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(info => {
+                const el = document.getElementById(info.id);
+                if (!el) return;
+
+                // actualizar a cor da imagem com base no valor binário
+                el.src = info.color === 1
+                    ? "/static/punto-verde.png"
+                    : "/static/punto-rojo.png";
+
+                // Atualiza posição também (opcional)
+                el.style.left = info.left;
+                el.style.top = info.top;
+            });
+        })
+        .catch(err => console.error("Erro ao actualizar semáforos:", err));
+}
+
 
 
 function actualizarOrdenes() {
@@ -92,8 +115,8 @@ function checkCom() {
             const com = data.COM;
 
             if (com === 1) {
-                atualizarEntradas();
-                atualizarSalidas();
+                actualizarEntradas();
+                actualizarSalidas();
             } else {
                 fetch("/api/inputs")
                     .then(res => res.json())
@@ -122,7 +145,7 @@ function checkCom() {
 
 
 
-function atualizarEntradas() {
+function actualizarEntradas() {
     fetch("/api/inputs")
         .then(res => res.json())
         .then(bits => {
@@ -135,11 +158,11 @@ function atualizarEntradas() {
                 }
             });
         })
-        .catch(err => console.error("Erro ao atualizar entradas:", err));
+        .catch(err => console.error("Erro ao actualizar entradas:", err));
 }
 
 
-function atualizarSalidas() {
+function actualizarSalidas() {
     fetch("/api/outputs")  // ← correto agora
         .then(res => res.json())
         .then(bits => {
@@ -152,7 +175,7 @@ function atualizarSalidas() {
                 }
             });
         })
-        .catch(err => console.error("Erro ao atualizar salidas:", err));
+        .catch(err => console.error("Erro ao actualizar salidas:", err));
 }
 
 
@@ -168,14 +191,13 @@ const colorMappingAgvs = {
 };
 
 setInterval(actualizarOrdenes, 5000);
-setInterval(() => atualizarElementos("/api/punto_semaforo", colorMappingSemaforos), 5000);
-setInterval(() => atualizarElementos("/api/punto_avg", colorMappingAgvs, true), 5000);
-
+setInterval(() => actualizarElementos("/api/punto_agv", colorMappingAgvs, true), 5000);
 setInterval(checkCom, 2000);
+setInterval(() => actualizarSemaforos("/api/punto_semaforo"), 5000);
 
 
 actualizarOrdenes();
-atualizarElementos("/api/punto_semaforo", colorMappingSemaforos);
-atualizarElementos("/api/punto_avg", colorMappingAgvs, true);
+actualizarElementos("/api/punto_agv", colorMappingAgvs, true);
+actualizarSemaforos("/api/punto_semaforo");
 
 checkCom;

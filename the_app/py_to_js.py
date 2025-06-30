@@ -1,27 +1,29 @@
 # py_to_js.py
 
 from flask import Blueprint, jsonify
-from .converciones import obtener_bits_entrada, obtener_bits_salida  # certifique-se de importar isso
 from .converciones import (
+    obtener_bits_salida,
+    obtener_bits_entrada,
     dbs_para_dict,
     obtener_elementos,
+    obtener_semaforos,
 )
 
-
 js_bp = Blueprint('js', __name__)
+
 
 @js_bp.route('/punto_semaforo')
 def get_semaforo():
     db = dbs_para_dict()
-    semaforos = db.get("database_semaforos", [])
-    x = [s["X"] for s in semaforos]
-    y = [s["Y"] for s in semaforos]
-    n = len(semaforos)
-    elementos = obtener_elementos("semaforo", x, y, angulo=[0]*n, num_elementos=n)
+    entry = db.get("database_entry_gui", [{}])[0]
+    semaforos_data = db.get("database_semaforos", [])
+    
+    elementos = obtener_semaforos(entry, semaforos_data)  # ← aqui sim usa os bits
     return jsonify(elementos)
 
-@js_bp.route('/punto_avg')
-def get_avg():
+
+@js_bp.route('/punto_agv')
+def get_agv():
     db = dbs_para_dict()
     entry = db.get("database_entry_gui", [{}])[0]
     agvs = [i for i in range(1, 100) if f"X_AGV{i}" in entry]
@@ -49,9 +51,6 @@ def get_outputs():
     entry = db.get("database_entry_gui", [{}])[0]
     bits = obtener_bits_salida(entry, llave="Outputs", num_bits=4)
     return jsonify(bits)
-
-
-
 
 @js_bp.route('/com')
 def get_com():
