@@ -96,16 +96,15 @@
             </div>
         </div>
 
-        <!-- Info -->
+        <!-- Comunicaciones -->
         <div class="estado-grid">
             <div class="estado-col">
                 <h2 class="titulo-seccion">Comunicaciones</h2>
                 <div class="info-contenedor">
                     <p class="punto">
-                        <span class="etiqueta">PLC:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
-                        <span class="etiqueta">AGV1:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
-                        <span class="etiqueta">AGV2:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
-                        <span class="etiqueta">AGV3:</span> <img src="{{ url_for('static', filename='punto-verde.png') }}">
+                        <span class="etiqueta">PLC:</span>
+                        <img class="entrada-bit" id="plc-status" src="/static/punto-verde.png">
+                        <span id="estado-agvs"></span>
                     </p>
                 </div>
             </div>

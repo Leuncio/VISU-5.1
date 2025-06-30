@@ -38,6 +38,29 @@ def get_ordenes():
     ordenes = dbs_para_dict().get("database_ordenes", [])
     return jsonify(ordenes)
 
+
+@js_bp.route('/estado_comunicaciones')
+def get_estado_comunicaciones():
+    db = dbs_para_dict()
+    entry = db.get("database_entry_gui", [{}])[0]
+
+    com = entry.get("COM", 0)
+    agvs = [i for i in range(1, 100) if f"COM_AGV{i}" in entry]
+
+    agv_estados = [
+        {
+            "id": f"AGV{i}",
+            "status": entry.get(f"COM_AGV{i}", 0)
+        } for i in agvs
+    ]
+
+    return jsonify({
+        "plc": com,
+        "agvs": agv_estados
+    })
+
+
+
 @js_bp.route('/inputs')
 def get_inputs():
     db = dbs_para_dict()

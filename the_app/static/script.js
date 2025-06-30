@@ -80,7 +80,6 @@ function actualizarSemaforos(url) {
 }
 
 
-
 function actualizarOrdenes() {
     fetch("/api/ordenes")
         .then(res => res.json())
@@ -105,6 +104,44 @@ function actualizarOrdenes() {
         })
         .catch(err => console.error("Erro ao buscar órdenes:", err));
 }
+
+
+
+function actualizarComunicaciones() {
+    fetch("/api/estado_comunicaciones", { cache: "no-store" })
+        .then(res => res.json())
+        .then(data => {
+            const plc = document.getElementById("plc-status");
+            if (plc) {
+                plc.src = data.plc === 1
+                    ? "/static/punto-verde.png"
+                    : "/static/punto-rojo.png";
+            }
+
+            const container = document.getElementById("estado-agvs");
+            if (container) {
+                container.innerHTML = "";
+                data.agvs.forEach((agv, index) => {
+                    const etiqueta = document.createElement("span");
+                    etiqueta.className = "etiqueta";
+                    etiqueta.textContent = `${agv.id}:`;
+
+                    const imagen = document.createElement("img");
+                    imagen.className = "entrada-bit";  // mesmo estilo dos outros puntos
+                    imagen.src = agv.status === 1
+                        ? "/static/punto-verde.png"
+                        : "/static/punto-rojo.png";
+
+                    // Inserir: AGVx: <punto> [espaço]
+                    container.appendChild(etiqueta);
+                    container.appendChild(imagen);
+                    container.appendChild(document.createTextNode(" "));  // ← espaço depois do ponto
+                });
+            }
+        })
+        .catch(err => console.error("Error al actualizar comunicaciones:", err));
+}
+
 
 
 
@@ -194,10 +231,11 @@ setInterval(actualizarOrdenes, 5000);
 setInterval(() => actualizarElementos("/api/punto_agv", colorMappingAgvs, true), 5000);
 setInterval(checkCom, 2000);
 setInterval(() => actualizarSemaforos("/api/punto_semaforo"), 5000);
-
+setInterval(actualizarComunicaciones, 3000);
 
 actualizarOrdenes();
 actualizarElementos("/api/punto_agv", colorMappingAgvs, true);
 actualizarSemaforos("/api/punto_semaforo");
+actualizarComunicaciones();
 
 checkCom;
