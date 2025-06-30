@@ -1,49 +1,51 @@
+# models.py
+
 from flask import Flask
 from sqlalchemy import create_engine, Integer, Float, String, Column
 from sqlalchemy.orm import declarative_base, Session
 import os
 
-# Entry parameters
+# Parámetros iniciales para la tabla de entrada
 ENTRY_INPUTS = 2
 ENTRY_OUTPUTS = 3
 ENTRY_MENSAJES = "Mensaje de ejemplo"
 ENTRY_BOTONES_IN = 9
-NUM_AGVS = 7  #10 maximun
+NUM_AGVS = 7  # máximo 10 AGVs
 COM_DEFAULT = 1
 AGV_DEFAULT_COM = 1
 AGV_DEFAULT_X = 1.0
 AGV_DEFAULT_Y = 1.0
 AGV_DEFAULT_A = 1.0
 
-# Orders parameters
+# Parámetros para la tabla de órdenes
 ORDEN_ORIGEN = "Origen A"
 ORDEN_DESTINO = "Destino A"
 
-# Out parameters
+# Parámetros para la tabla de salida
 OUTGUI_NUM_BOTONES = 2
 OUTGUI_NUMERO_AGVS = 0
 
-# Semáforos parameters
+# Parámetros para los semáforos
 SEMAFORO_X = 30.0
 SEMAFORO_Y = 18.0
 
-# Initialize app and folders
+# Inicializar la app y crear carpeta local de base de datos
 app = Flask(__name__)
 os.makedirs("instance", exist_ok=True)
 
-# Bases
+# Declaración de bases de datos
 BaseEntryGUI = declarative_base()
 BaseOrdenes = declarative_base()
 BaseOutGUI = declarative_base()
 BaseSemaforos = declarative_base()
 
-# Engines
+# Motores de conexión (uno por tabla)
 engine_entry = create_engine("sqlite:///instance/database_entry_gui.db", echo=False)
 engine_ordenes = create_engine("sqlite:///instance/database_ordenes.db", echo=False)
 engine_out = create_engine("sqlite:///instance/database_out_gui.db", echo=False)
 engine_semaforos = create_engine("sqlite:///instance/database_semaforos.db", echo=False)
 
-# Entry model (dinâmico)
+# Modelo dinámico para entrada de datos (AGVs incluidos)
 attrs = {
     '__tablename__': 'database_entry_gui',
     'id': Column(Integer, primary_key=True),
@@ -60,62 +62,55 @@ for i in range(1, NUM_AGVS + 1):
     attrs[f'A_AGV{i}'] = Column(Float, nullable=False, default=AGV_DEFAULT_A)
 DatabaseEntryGUI = type('DatabaseEntryGUI', (BaseEntryGUI,), attrs)
 
-# Orders model
+# Modelo para órdenes
 class DatabaseOrdenes(BaseOrdenes):
     __tablename__ = "database_ordenes"
     id = Column(Integer, primary_key=True)
     origen = Column(String, nullable=False, default=ORDEN_ORIGEN)
     destino = Column(String, nullable=False, default=ORDEN_DESTINO)
 
-# Out model
+# Modelo para salida GUI
 class DatabaseOutGUI(BaseOutGUI):
     __tablename__ = "database_out_gui"
     id = Column(Integer, primary_key=True)
     numero_agvs = Column(Integer, nullable=False, default=OUTGUI_NUMERO_AGVS)
     out_botones = Column(Integer, nullable=False, default=OUTGUI_NUM_BOTONES)
 
-# Semáforos model
+# Modelo para semáforos
 class DatabaseSemaforos(BaseSemaforos):
     __tablename__ = "database_semaforos"
     id = Column(Integer, primary_key=True)
     X = Column(Float, nullable=False, default=SEMAFORO_X)
     Y = Column(Float, nullable=False, default=SEMAFORO_Y)
 
-# Create tables
-BaseEntryGUI.metadata.drop_all(engine_entry)
+# Crear las tablas si no existen (no las borra)
 BaseEntryGUI.metadata.create_all(engine_entry)
-
-BaseOrdenes.metadata.drop_all(engine_ordenes)
 BaseOrdenes.metadata.create_all(engine_ordenes)
-
-BaseOutGUI.metadata.drop_all(engine_out)
 BaseOutGUI.metadata.create_all(engine_out)
-
-BaseSemaforos.metadata.drop_all(engine_semaforos)
 BaseSemaforos.metadata.create_all(engine_semaforos)
 
-# Repopulate with defaults
+# Insertar valores por defecto si la tabla está vacía
 with Session(engine_entry) as session:
-    session.add(DatabaseEntryGUI())
-    session.commit()
+    if session.query(DatabaseEntryGUI).count() == 0:
+        session.add(DatabaseEntryGUI())
+        session.commit()
 
 with Session(engine_ordenes) as session:
-    session.add(DatabaseOrdenes())
-    session.commit()
+    if session.query(DatabaseOrdenes).count() == 0:
+        session.add(DatabaseOrdenes())
+        session.commit()
 
 with Session(engine_out) as session:
-    session.add(DatabaseOutGUI())
-    session.commit()
+    if session.query(DatabaseOutGUI).count() == 0:
+        session.add(DatabaseOutGUI())
+        session.commit()
 
 with Session(engine_semaforos) as session:
-    session.add(DatabaseSemaforos())
-    session.commit()
+    if session.query(DatabaseSemaforos).count() == 0:
+        session.add(DatabaseSemaforos())
+        session.commit()
 
-
-
-
-
-
+# Función para convertir las tablas en diccionarios utilizables por la lógica de la app
 def dbs_para_dict():
     resultados = {}
 
@@ -135,7 +130,7 @@ def dbs_para_dict():
         semaforos_rows = session.query(DatabaseSemaforos).all()
         resultados['database_semaforos'] = [row.__dict__.copy() for row in semaforos_rows]
 
-    # Remover chaves técnicas como '_sa_instance_state'
+    # Eliminar la clave interna de SQLAlchemy (_sa_instance_state)
     for key in resultados:
         for item in resultados[key]:
             item.pop('_sa_instance_state', None)
