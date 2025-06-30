@@ -49,3 +49,14 @@ def get_outputs():
     entry = db.get("database_entry_gui", [{}])[0]
     bits = obtener_bits_salida(entry, llave="Outputs", num_bits=4)
     return jsonify(bits)
+
+
+
+
+@js_bp.route('/com')
+def get_com():
+    db = dbs_para_dict()
+    entry = db.get("database_entry_gui", [{}])[0]
+    com = entry.get("COM", 0)  # ← Isso em vez de entry.COM
+    return jsonify({"COM": com})
+

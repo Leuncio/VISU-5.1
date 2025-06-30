@@ -84,6 +84,44 @@ function actualizarOrdenes() {
 }
 
 
+
+function checkCom() {
+    fetch("/api/com")
+        .then(res => res.json())
+        .then(data => {
+            const com = data.COM;
+
+            if (com === 1) {
+                atualizarEntradas();
+                atualizarSalidas();
+            } else {
+                fetch("/api/inputs")
+                    .then(res => res.json())
+                    .then(bits => {
+                        bits.forEach((bit, index) => {
+                            const img = document.querySelector(`.entrada-bit[data-entrada="${index}"]`);
+                            if (img) {
+                                img.src = "/static/punto-gris.png";
+                            }
+                        });
+                    })
+                    .catch(err => console.error("Erro ao forçar cinza nas entradas:", err));
+
+                document.querySelectorAll(".salida-bit").forEach(img => {
+                    img.src = "/static/ponto-gris.png";
+                });
+
+                const plc = document.getElementById("plc-status");
+                if (plc) plc.src = "/static/punto-rojo.png";
+            }
+        })
+        .catch(err => console.error("Erro ao verificar COM:", err));
+}
+
+
+
+
+
 function atualizarEntradas() {
     fetch("/api/inputs")
         .then(res => res.json())
@@ -132,11 +170,12 @@ const colorMappingAgvs = {
 setInterval(actualizarOrdenes, 5000);
 setInterval(() => atualizarElementos("/api/punto_semaforo", colorMappingSemaforos), 5000);
 setInterval(() => atualizarElementos("/api/punto_avg", colorMappingAgvs, true), 5000);
-setInterval(atualizarEntradas, 2000);
-setInterval(atualizarSalidas, 2000);
+
+setInterval(checkCom, 2000);
+
 
 actualizarOrdenes();
 atualizarElementos("/api/punto_semaforo", colorMappingSemaforos);
 atualizarElementos("/api/punto_avg", colorMappingAgvs, true);
-atualizarEntradas();
-atualizarSalidas();
+
+checkCom;
