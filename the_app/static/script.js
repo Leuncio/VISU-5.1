@@ -108,7 +108,7 @@ function checkCom() {
                     .catch(err => console.error("Erro ao forçar cinza nas entradas:", err));
 
                 document.querySelectorAll(".salida-bit").forEach(img => {
-                    img.src = "/static/ponto-gris.png";
+                    img.src = "/static/punto-gris.png";
                 });
 
                 const plc = document.getElementById("plc-status");
