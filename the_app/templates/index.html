@@ -12,12 +12,15 @@
             <div class="map">
                 <img id="mapa-img" src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
 
-                
+
                 {% for semaforo in semaforos %}
                     <img 
                         id="{{ semaforo.id }}" 
                         class="semaforo pos-semaforo" 
-                        src="{{ url_for('static', filename='punto-gris.png') }}" 
+                        src="{{
+                            url_for('static', filename='punto-verde.png') if semaforo.color else
+                            url_for('static', filename='punto-rojo.png')
+                        }}"
                         style="left: {{ semaforo.left }}; top: {{ semaforo.top }};" 
                         alt="Semáforo"
                     >

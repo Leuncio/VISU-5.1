@@ -28,7 +28,7 @@ def home():
     a = [entry_data[f"A_AGV{i}"] for i in agvs_idx]
 
     agvs = obtener_elementos("agv", x, y, angulo=a, num_elementos=len(agvs_idx))
-    semaforos = obtener_semaforos(semaforos_data)
+    semaforos = obtener_semaforos(entry_data, semaforos_data)
     entradas_bits = obtener_bits_entrada(entry_data, llave="Inputs", num_bits=14)
     salidas_bits = obtener_bits_salida(entry_data, llave="Outputs", num_bits=4)
 

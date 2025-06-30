@@ -131,18 +131,22 @@ def obtener_bits_salida(entry_data, llave="Outputs", num_bits=4):
     return numero_para_bits(valor, num_bits)
 
 
-def obtener_semaforos(semaforos_data):
+def obtener_semaforos(entry_data, semaforos_data):
     """
-    Procesa los datos de DatabaseSemaforos para obtener posiciones CSS de los semáforos.
+    Une la posición de los semáforos con los bits del campo 'Semaforo' para definir color.
     """
+    total = len(semaforos_data)
+    bits = numero_para_bits(entry_data.get("Semaforo", 0), num_bits=total)
     elementos = []
 
     for i, semaforo in enumerate(semaforos_data):
-        coordenadas = metros_a_css_porcentaje(semaforo["X"], semaforo["Y"])
-        coordenadas["id"] = f"semaforo-{i + 1}"
-        elementos.append(coordenadas)
+        coords = metros_a_css_porcentaje(semaforo["X"], semaforo["Y"])
+        coords["id"] = f"semaforo-{i + 1}"
+        coords["color"] = bits[i]  # 1 = verde, 0 = rojo
+        elementos.append(coords)
 
     return elementos
+
 
 
 
