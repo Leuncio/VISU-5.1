@@ -29,8 +29,12 @@ def home():
 
     agvs = obtener_elementos("agv", x, y, angulo=a, num_elementos=len(agvs_idx))
     semaforos = obtener_semaforos(semaforos_data)
-    entradas_bits = obtener_bits_entrada(entry_data, llave="Inputs", num_bits=13)
+    entradas_bits = obtener_bits_entrada(entry_data, llave="Inputs", num_bits=14)
     salidas_bits = obtener_bits_salida(entry_data, llave="Outputs", num_bits=4)
+
+    print("Entradas (valor bruto):", entry_data.get("Inputs"))
+    print("Bits gerados:", obtener_bits_entrada(entry_data, "Inputs", 14))
+
 
     return render_template(
         'index.html',

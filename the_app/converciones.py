@@ -115,7 +115,7 @@ def numero_para_bits(valor, num_bits=8):
     return [int(b) for b in binario[-num_bits:]]
 
 
-def obtener_bits_entrada(entry_data, llave="Inputs", num_bits=13):
+def obtener_bits_entrada(entry_data, llave="Inputs", num_bits=14):
     """
     Extrai bits do campo de entrada da base de dados.
     """
