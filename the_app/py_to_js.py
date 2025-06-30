@@ -10,7 +10,7 @@ from .converciones import (
 
 js_bp = Blueprint('js', __name__)
 
-@js_bp.route('/ponto_semaforo')
+@js_bp.route('/punto_semaforo')
 def get_semaforo():
     db = dbs_para_dict()
     semaforos = db.get("database_semaforos", [])
@@ -20,7 +20,7 @@ def get_semaforo():
     elementos = obtener_elementos("semaforo", x, y, angulo=[0]*n, num_elementos=n)
     return jsonify(elementos)
 
-@js_bp.route('/ponto_avg')
+@js_bp.route('/punto_avg')
 def get_avg():
     db = dbs_para_dict()
     entry = db.get("database_entry_gui", [{}])[0]

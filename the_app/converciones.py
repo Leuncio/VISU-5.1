@@ -62,22 +62,26 @@ def dbs_para_dict():
 def obtener_elementos(tipo, x, y, angulo, num_elementos):
     """
     Obtiene las coordenadas de los elementos en formato CSS,
-    asignando un bit aleatorio a cada uno. Permite definir X, Y y el ángulo para AGVs.
+    asignando ID y propiedades específicas para AGVs y semáforos.
     """
     elementos = []
-    binario = numero_para_bits(num_elementos)  # <- Correção aqui
+    binario = numero_para_bits(num_elementos)  # ← útil se quiser usar bits depois
 
     for i in range(num_elementos):
         elemento = metros_a_css_porcentaje(x[i], y[i])
-        elemento["id"] = f"{tipo}-{i}"
 
-        # Si es AGV, incluye ángulo
         if tipo == "agv":
+            elemento["id"] = f"agv-{i + 1}"
+            elemento["imagen"] = f"agv-{i + 1}.svg"
             elemento["angulo"] = angulo[i]
+        elif tipo == "semaforo":
+            elemento["id"] = f"semaforo-{i + 1}"
+            # Aqui você pode adicionar imagem/filtro se quiser
 
         elementos.append(elemento)
 
     return elementos
+
 
 
 def obtener_agvs(entry_data):

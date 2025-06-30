@@ -3,7 +3,7 @@
 from flask import Blueprint, render_template
 from .converciones import (
     dbs_para_dict,
-    obtener_agvs,
+    obtener_elementos,
     obtener_semaforos,
     obtener_bits_entrada,
     obtener_bits_salida,
@@ -21,7 +21,13 @@ def home():
     out_data = db.get("database_out_gui", [{}])[0]
     semaforos_data = db.get("database_semaforos", [])
 
-    agvs = obtener_agvs(entry_data)
+    # ➤ Extrair dados dos AGVs do banco
+    agvs_idx = [i for i in range(1, 100) if f"X_AGV{i}" in entry_data]
+    x = [entry_data[f"X_AGV{i}"] for i in agvs_idx]
+    y = [entry_data[f"Y_AGV{i}"] for i in agvs_idx]
+    a = [entry_data[f"A_AGV{i}"] for i in agvs_idx]
+
+    agvs = obtener_elementos("agv", x, y, angulo=a, num_elementos=len(agvs_idx))
     semaforos = obtener_semaforos(semaforos_data)
     entradas_bits = obtener_bits_entrada(entry_data, llave="Inputs", num_bits=13)
     salidas_bits = obtener_bits_salida(entry_data, llave="Outputs", num_bits=4)

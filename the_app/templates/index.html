@@ -24,15 +24,17 @@
                     <p>No hay semáforos registrados en la DB.</p>
                 {% endfor %}
 
+                
                 {% for agv in agvs %}
                     <img 
                         id="{{ agv.id }}" 
                         class="agv pos-agv" 
-                        src="{{ url_for('static', filename='agv-' ~ loop.index ~ '.svg') }}" 
+                        src="{{ url_for('static', filename=agv.imagen) }}" 
                         style="left: {{ agv.left }}; top: {{ agv.top }};" 
-                        alt="AGV {{ loop.index }}"
+                        alt="{{ agv.id }}"
                     >
                 {% endfor %}
+
 
                 <div style="text-align: center; margin-top: 10px;">
                     <button type="button" id="botonRuta" class="btn btn-info">Ruta</button>
@@ -108,7 +110,7 @@
             <div class="estado-col">
                 <h2 class="titulo-seccion">Entradas</h2>
                 <div class="info-contenedor">
-                    <p class="ponto">
+                    <p class="punto">
                         {% for bit in entradas_bits %}
                             <span class="etiqueta">in {{ loop.index0 }}:</span>
                             <img
