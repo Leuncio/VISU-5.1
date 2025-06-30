@@ -131,14 +131,18 @@ def obtener_bits_salida(entry_data, llave="Outputs", num_bits=4):
     return numero_para_bits(valor, num_bits)
 
 
-def obtener_bits_semaforos(semaforos_data, llave="Estados", num_bits=14):
+def obtener_semaforos(semaforos_data):
     """
-    Converte um valor (ou soma de flags) de semáforos em lista de bits.
+    Procesa los datos de DatabaseSemaforos para obtener posiciones CSS de los semáforos.
     """
-    if not semaforos_data:
-        return [0] * num_bits
+    elementos = []
 
-    valor = semaforos_data[0].get(llave, 0)
-    return numero_para_bits(valor, num_bits)
+    for i, semaforo in enumerate(semaforos_data):
+        coordenadas = metros_a_css_porcentaje(semaforo["X"], semaforo["Y"])
+        coordenadas["id"] = f"semaforo-{i + 1}"
+        elementos.append(coordenadas)
+
+    return elementos
+
 
 

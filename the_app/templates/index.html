@@ -12,6 +12,7 @@
             <div class="map">
                 <img id="mapa-img" src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
 
+                
                 {% for semaforo in semaforos %}
                     <img 
                         id="{{ semaforo.id }}" 
@@ -24,7 +25,7 @@
                     <p>No hay semáforos registrados en la DB.</p>
                 {% endfor %}
 
-                
+
                 {% for agv in agvs %}
                     <img 
                         id="{{ agv.id }}" 

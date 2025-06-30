@@ -21,7 +21,7 @@ def home():
     out_data = db.get("database_out_gui", [{}])[0]
     semaforos_data = db.get("database_semaforos", [])
 
-    # ➤ Extrair dados dos AGVs do banco
+    # Extrair dados dos AGVs do banco
     agvs_idx = [i for i in range(1, 100) if f"X_AGV{i}" in entry_data]
     x = [entry_data[f"X_AGV{i}"] for i in agvs_idx]
     y = [entry_data[f"Y_AGV{i}"] for i in agvs_idx]
