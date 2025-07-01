@@ -120,16 +120,16 @@ body {
     justify-content: center;
 }
 
-#botaoMas {
+#botonMas {
     background-color: #6A0DAD;
 }
 
-#botaoMenos {
+#botonMenos {
     background-color: #1CC9C5;
 }
 
-#botaoMas,
-#botaoMenos {
+#botonMas,
+#botonMenos {
     padding: 5px 10px;
     font-size: 20px;
     border-radius: 5px;
@@ -139,12 +139,12 @@ body {
     transition: background-color 0.3s ease;
 }
 
-#botaoMas:hover {
+#botonMas:hover {
     background-color: #9143da;
     color: #fff;
 }
 
-#botaoMenos:hover {
+#botonMenos:hover {
     background-color: #36e0dc;
     color: #000;
 }

@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     const botonRuta = document.getElementById("botonRuta");
     const mapa = document.getElementById("mapa-img");
-    const botaoMas = document.getElementById("botaoMas");
-    const botaoMenos = document.getElementById("botaoMenos");
+    const botonMas = document.getElementById("botonMas");
+    const botonMenos = document.getElementById("botonMenos");
     const contador = document.getElementById("contador");
 
-    if (!botonRuta || !mapa || !botaoMas || !botaoMenos || !contador) {
+    if (!botonRuta || !mapa || !botonMas || !botonMenos || !contador) {
         console.error("Elemento não encontrado: Verifique os IDs no HTML.");
         return;
     }
@@ -20,12 +20,14 @@ document.addEventListener("DOMContentLoaded", function () {
             : "/static/mapa.png";
     });
 
-    botaoMas.addEventListener("click", function () {
-        valorContador++;
-        contador.textContent = valorContador;
+    botonMas.addEventListener("click", function () {
+        if (valorContador < 10) {
+            valorContador++;
+            contador.textContent = valorContador;
+        }
     });
 
-    botaoMenos.addEventListener("click", function () {
+    botonMenos.addEventListener("click", function () {
         if (valorContador > 0) {
             valorContador--;
             contador.textContent = valorContador;
