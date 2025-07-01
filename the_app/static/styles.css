@@ -214,21 +214,20 @@ body {
     font-size: 15px;
     display: flex;
     align-items: center;
-    gap: 6px;
     color: #FFFFFF;
+    /* gap: 6px; ← remova */
 }
 
 .punto img {
+    margin-left: 4px;   /* espaço entre texto e ponto */
+    margin-right: 8px;  /* espaço depois do ponto */
+}
+
+.entrada-bit,
+.salida-bit {
     width: 16px;
     height: 16px;
     object-fit: contain;
     vertical-align: middle;
 }
 
-
-.entrada-bit {
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
-    vertical-align: middle;
-}
