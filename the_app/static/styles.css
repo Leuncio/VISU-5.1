@@ -200,6 +200,11 @@ body {
 }
 
 /* Estado: Grid de Comunicaciones */
+.estado-col {
+    flex: 1 1 300px;  /* cresce, encolhe, largura mínima */
+    min-width: 250px;
+}
+
 .estado-grid {
     display: flex;
     justify-content: space-between;
