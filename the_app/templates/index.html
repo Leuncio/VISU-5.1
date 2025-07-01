@@ -136,7 +136,7 @@
                 <div class="info-contenedor">
                     <p class="punto-2">
                         {% for bit in salidas_bits %}
-                            <span class="etiqueta">OUT {{ loop.index0 }}:</span>
+                            <span class="etiqueta">OUT{{ loop.index0 }}:</span>
                             <img
                                 class="salida-bit"
                                 data-salida="{{ loop.index0 }}"
@@ -149,12 +149,12 @@
                     </p>
                 </div>
             </div>
+        </div>
 
-            <!-- mensajes -->
-            <div class="estado-mensajes">
-                <h2 class="titulo-seccion">Mensajes del sistema</h2>
-                <p class="punto">{{ entradas.Mensajes }}</p>
-            </div>
+        <!-- mensajes -->
+        <div class="linea-mensaje">
+            <h2 class="titulo-seccion">Mensajes del sistema:</h2>
+            <span class="mensaje-texto">{{ entradas.Mensajes }}</span>
         </div>
     </div>
 
