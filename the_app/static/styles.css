@@ -223,7 +223,18 @@ body {
     /* gap: 6px; ← remova */
 }
 
-.punto img {
+.punto-2 {
+    margin: 0;
+    font-size: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color: #FFFFFF;
+    /* gap: 6px; ← remova */
+}
+
+.punto img,
+.punto-2 img {
     margin-left: 4px;   /* espaço entre texto e ponto */
     margin-right: 8px;  /* espaço depois do ponto */
 }
