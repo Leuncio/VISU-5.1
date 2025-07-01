@@ -9,7 +9,7 @@ from .converciones import (
     obtener_bits_salida,
 )
 
-# Criar o Blueprint principal
+# Crear Blueprint principal
 main_bp = Blueprint('main', __name__, template_folder='templates')
 
 @main_bp.route('/', methods=['GET', 'POST'])
@@ -21,7 +21,7 @@ def home():
     out_data = db.get("database_out_gui", [{}])[0]
     semaforos_data = db.get("database_semaforos", [])
 
-    # Extrair dados dos AGVs do banco
+    # Extraer datos de los AGVs de DB
     agvs_idx = [i for i in range(1, 100) if f"X_AGV{i}" in entry_data]
     x = [entry_data[f"X_AGV{i}"] for i in agvs_idx]
     y = [entry_data[f"Y_AGV{i}"] for i in agvs_idx]
@@ -31,9 +31,6 @@ def home():
     semaforos = obtener_semaforos(entry_data, semaforos_data)
     entradas_bits = obtener_bits_entrada(entry_data, llave="Inputs", num_bits=14)
     salidas_bits = obtener_bits_salida(entry_data, llave="Outputs", num_bits=4)
-
-    print("Entradas (valor bruto):", entry_data.get("Inputs"))
-    print("Bits gerados:", obtener_bits_entrada(entry_data, "Inputs", 14))
 
 
     return render_template(

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const contador = document.getElementById("contador");
 
     if (!botonRuta || !mapa || !botonMas || !botonMenos || !contador) {
-        console.error("Elemento não encontrado: Verifique os IDs no HTML.");
+        console.error("Elemento no encontrado");
         return;
     }
 
@@ -82,7 +82,6 @@ function actualizarSemaforos(url) {
 }
 
 
-
 function actualizarComunicaciones() {
     fetch("/api/estado_comunicaciones", { cache: "no-store" })
         .then(res => res.json())
@@ -110,16 +109,11 @@ function actualizarComunicaciones() {
 
                     container.appendChild(etiqueta);
                     container.appendChild(imagen);
-                    // espaço removido — tudo controlado agora pelo CSS do .punto
                 });
             }
         })
         .catch(err => console.error("Error al actualizar comunicaciones:", err));
 }
-
-
-
-
 
 
 function actualizarOrdenes() {
@@ -146,7 +140,6 @@ function actualizarOrdenes() {
         })
         .catch(err => console.error("Erro ao buscar órdenes:", err));
 }
-
 
 
 function checkCom() {
@@ -184,8 +177,6 @@ function checkCom() {
 
 
 
-
-
 function actualizarEntradas() {
     fetch("/api/inputs")
         .then(res => res.json())
@@ -220,7 +211,6 @@ function actualizarSalidas() {
 }
 
 
-
 function actualizarMensaje() {
     fetch("/api/mensaje", { cache: "no-store" })
         .then(res => res.json())
@@ -232,8 +222,6 @@ function actualizarMensaje() {
         })
         .catch(err => console.error("Erro ao atualizar mensaje:", err));
 }
-
-
 
 
 const colorMappingSemaforos = {

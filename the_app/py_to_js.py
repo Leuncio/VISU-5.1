@@ -19,7 +19,7 @@ def get_semaforo():
     entry = db.get("database_entry_gui", [{}])[0]
     semaforos_data = db.get("database_semaforos", [])
     
-    elementos = obtener_semaforos(entry, semaforos_data)  # ← aqui sim usa os bits
+    elementos = obtener_semaforos(entry, semaforos_data)
     return jsonify(elementos)
 
 
@@ -65,7 +65,7 @@ def get_estado_comunicaciones():
 def get_com():
     db = dbs_para_dict()
     entry = db.get("database_entry_gui", [{}])[0]
-    com = entry.get("COM", 0)  # ← Isso em vez de entry.COM
+    com = entry.get("COM", 0)
     return jsonify({"COM": com})
 
 @js_bp.route('/inputs')

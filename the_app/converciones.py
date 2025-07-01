@@ -51,7 +51,7 @@ def dbs_para_dict():
         semaforos_rows = session.query(DatabaseSemaforos).all()
         resultados['database_semaforos'] = [row.__dict__.copy() for row in semaforos_rows]
 
-    # Remover chaves técnicas como '_sa_instance_state'
+    # Remover llaves técnicas como '_sa_instance_state'
     for key in resultados:
         for item in resultados[key]:
             item.pop('_sa_instance_state', None)
@@ -76,12 +76,10 @@ def obtener_elementos(tipo, x, y, angulo, num_elementos):
             elemento["angulo"] = angulo[i]
         elif tipo == "semaforo":
             elemento["id"] = f"semaforo-{i + 1}"
-            # Aqui você pode adicionar imagem/filtro se quiser
 
         elementos.append(elemento)
 
     return elementos
-
 
 
 def obtener_agvs(entry_data):

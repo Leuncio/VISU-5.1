@@ -12,7 +12,7 @@
             <div class="map">
                 <img id="mapa-img" src="{{ url_for('static', filename='mapa.png') }}" alt="Mapa">
 
-
+                <!-- Semaforos -->
                 {% for semaforo in semaforos %}
                     <img 
                         id="{{ semaforo.id }}" 
@@ -28,7 +28,7 @@
                     <p>No hay semáforos registrados en la DB.</p>
                 {% endfor %}
 
-
+                <!-- AGVs -->
                 {% for agv in agvs %}
                     <img 
                         id="{{ agv.id }}" 
@@ -73,7 +73,7 @@
             </table>
         </div>
 
-        <!-- Sección de AGVSs -->
+        <!-- Botones de AGVSs -->
         <div class="agvss-container">
             <h2 class="titulo-agvs">AGVs</h2>
             <div class="contador-botones">

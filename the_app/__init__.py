@@ -8,7 +8,7 @@ def create_app():
     # Load configuration from config.py or environment variables
     app.config.from_object('config')
 
-    # Register blueprints for modular routing
+    # Registrar BP
     app.register_blueprint(main_bp)
     app.register_blueprint(js_bp, url_prefix='/api')
 
