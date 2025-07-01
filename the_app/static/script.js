@@ -219,6 +219,21 @@ function actualizarSalidas() {
 
 
 
+function actualizarMensaje() {
+    fetch("/api/mensaje", { cache: "no-store" })
+        .then(res => res.json())
+        .then(data => {
+            const mensajeElemento = document.getElementById("mensaje-dinamico");
+            if (mensajeElemento && data.mensaje !== undefined) {
+                mensajeElemento.textContent = data.mensaje;
+            }
+        })
+        .catch(err => console.error("Erro ao atualizar mensaje:", err));
+}
+
+
+
+
 const colorMappingSemaforos = {
     0: "/static/punto-rojo.png",
     1: "/static/punto-verde.png",
@@ -234,10 +249,14 @@ setInterval(() => actualizarElementos("/api/punto_agv", colorMappingAgvs, true),
 setInterval(checkCom, 2000);
 setInterval(() => actualizarSemaforos("/api/punto_semaforo"), 5000);
 setInterval(actualizarComunicaciones, 3000);
+setInterval(actualizarMensaje, 3000);
+
 
 actualizarOrdenes();
 actualizarElementos("/api/punto_agv", colorMappingAgvs, true);
 actualizarSemaforos("/api/punto_semaforo");
 actualizarComunicaciones();
+actualizarMensaje();
+
 
 checkCom;

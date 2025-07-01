@@ -148,5 +148,25 @@ def obtener_semaforos(entry_data, semaforos_data):
     return elementos
 
 
+def obtener_mensaje():
+    """
+    Retorna a última mensagem real (mais recente) do banco de dados.
+    """
+    with Session(engine_entry) as session:
+        row = (
+            session.query(DatabaseEntryGUI)
+            .order_by(DatabaseEntryGUI.id.desc())
+            .limit(1)
+            .first()
+        )
+
+        if row and hasattr(row, "Mensajes"):
+            return row.Mensajes or ""
+    return ""
+
+
+
+
+
 
 

@@ -7,6 +7,7 @@ from .converciones import (
     dbs_para_dict,
     obtener_elementos,
     obtener_semaforos,
+    obtener_mensaje,
 )
 
 js_bp = Blueprint('js', __name__)
@@ -60,6 +61,12 @@ def get_estado_comunicaciones():
     })
 
 
+@js_bp.route('/com')
+def get_com():
+    db = dbs_para_dict()
+    entry = db.get("database_entry_gui", [{}])[0]
+    com = entry.get("COM", 0)  # ← Isso em vez de entry.COM
+    return jsonify({"COM": com})
 
 @js_bp.route('/inputs')
 def get_inputs():
@@ -75,10 +82,7 @@ def get_outputs():
     bits = obtener_bits_salida(entry, llave="Outputs", num_bits=4)
     return jsonify(bits)
 
-@js_bp.route('/com')
-def get_com():
-    db = dbs_para_dict()
-    entry = db.get("database_entry_gui", [{}])[0]
-    com = entry.get("COM", 0)  # ← Isso em vez de entry.COM
-    return jsonify({"COM": com})
-
+@js_bp.route("/mensaje")
+def mensaje():
+    texto = obtener_mensaje()
+    return jsonify({"mensaje": texto})

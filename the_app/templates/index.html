@@ -152,10 +152,14 @@
         </div>
 
         <!-- mensajes -->
-        <div class="linea-mensaje">
-            <h2 class="titulo-seccion">Mensajes del sistema:</h2>
-            <span class="mensaje-texto">{{ entradas.Mensajes }}</span>
+        <div class="estado-mensajes">
+            <div class="linea-mensaje">
+                <h2 class="titulo-seccion">Mensajes del sistema:</h2>
+                <span class="mensaje-texto" id="mensaje-dinamico">—</span>
+            </div>
         </div>
+
+
     </div>
 
     {% include "footer.html" %}
