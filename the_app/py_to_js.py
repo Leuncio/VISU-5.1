@@ -1,6 +1,7 @@
 # py_to_js.py
 
 from flask import Blueprint, jsonify
+from .parametros import NUM_INPUTS, NUM_OUTPUTS
 from .converciones import (
     obtener_bits_salida,
     obtener_bits_entrada,
@@ -72,14 +73,14 @@ def get_com():
 def get_inputs():
     db = dbs_para_dict()
     entry = db.get("database_entry_gui", [{}])[0]
-    bits = obtener_bits_entrada(entry, llave="Inputs", num_bits=14)
+    bits = obtener_bits_entrada(entry, llave="Inputs", num_bits=NUM_INPUTS)
     return jsonify(bits)
 
 @js_bp.route('/outputs')
 def get_outputs():
     db = dbs_para_dict()
     entry = db.get("database_entry_gui", [{}])[0]
-    bits = obtener_bits_salida(entry, llave="Outputs", num_bits=4)
+    bits = obtener_bits_salida(entry, llave="Outputs", num_bits=NUM_OUTPUTS)
     return jsonify(bits)
 
 @js_bp.route("/mensaje")

@@ -1,6 +1,7 @@
 # views.py
 
 from flask import Blueprint, render_template
+from .parametros import NUM_INPUTS, NUM_OUTPUTS
 from .converciones import (
     dbs_para_dict,
     obtener_elementos,
@@ -29,8 +30,8 @@ def home():
 
     agvs = obtener_elementos("agv", x, y, angulo=a, num_elementos=len(agvs_idx))
     semaforos = obtener_semaforos(entry_data, semaforos_data)
-    entradas_bits = obtener_bits_entrada(entry_data, llave="Inputs", num_bits=14)
-    salidas_bits = obtener_bits_salida(entry_data, llave="Outputs", num_bits=4)
+    entradas_bits = obtener_bits_entrada(entry_data, llave="Inputs", num_bits=NUM_INPUTS)
+    salidas_bits = obtener_bits_salida(entry_data, llave="Outputs", num_bits=NUM_OUTPUTS)
 
 
     return render_template(
