@@ -1,7 +1,7 @@
 # views.py
 
 from flask import Blueprint, render_template
-from .parametros import NUM_INPUTS, NUM_OUTPUTS
+from .parametros import NUM_BOTONES, NUM_INPUTS, NUM_OUTPUTS
 from .converciones import (
     dbs_para_dict,
     obtener_elementos,
@@ -39,6 +39,7 @@ def home():
         ordenes=ordenes,
         agvs=agvs,
         semaforos=semaforos,
+        num_botones=NUM_BOTONES,
         entradas=entry_data,
         salidas=out_data,
         entradas_bits=entradas_bits,

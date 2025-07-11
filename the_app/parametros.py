@@ -1,2 +1,6 @@
+# parametros
+
+NUM_BOTONES = 9
+
 NUM_INPUTS = 9
 NUM_OUTPUTS = 8
