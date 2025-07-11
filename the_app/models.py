@@ -76,7 +76,7 @@ class DatabaseOutGUI(BaseOutGUI):
     __tablename__ = "database_out_gui"
     id = Column(Integer, primary_key=True)
     numero_agvs = Column(Integer, nullable=False, default=OUTGUI_NUMERO_AGVS)
-    out_botones = Column(Integer, nullable=False, default=OUTGUI_NUM_BOTONES)
+    botones_out = Column(Integer, nullable=False, default=OUTGUI_NUM_BOTONES)
 
 # Modelo para semáforos
 class DatabaseSemaforos(BaseSemaforos):
