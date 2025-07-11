@@ -106,11 +106,8 @@ def obtener_semaforos(semaforos_data):
 
 
 def numero_para_bits(valor, num_bits=8):
-    """
-    Converte um inteiro em uma lista de bits (0 ou 1), com tamanho fixo.
-    """
     binario = bin(valor)[2:].zfill(num_bits)
-    return [int(b) for b in binario[-num_bits:]]
+    return [int(b) for b in binario[-num_bits:]][::-1]  # ← inversão
 
 
 def obtener_bits_entrada(entry_data, llave="Inputs", num_bits=14):
